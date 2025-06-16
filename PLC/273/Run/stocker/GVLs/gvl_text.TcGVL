@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="gvl_text" Id="{ea63f71e-cbb8-4661-a806-f2628586a32b}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	var_auto_runing: WSTRING(255);
+	var_stopping: WSTRING(255);
+	var_trayChangeDone: WSTRING(255);
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_gm_setting" Id="{26d9d0d5-22f2-45c2-a6c9-d944cd93a635}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_gm_setting
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	var_scan: INT := 1;
+	var_buf_productID: INT;
+	flg_productChanged: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//vels
+gvl_gm.var_buf_manualVel := gvl_visu.var_gm_manualRotaryVel;
+gvl_gm.var_buf_autoVel := gvl_visu.var_gm_autoRotaryVel;
+gvl_gm.var_buf_autoAcc := gvl_visu.var_gm_autoRotaryAcc;
+gvl_gm.var_buf_autoDec := gvl_visu.var_gm_autoRotaryDec;
+//jog
+gvl_axis.fbi_mc_jogR.Position := gvl_visu.var_gm_rotaryInch;
+CASE gvl_visu.var_radio_rotaryJogMode OF
+	0:
+		gvl_axis.fbi_mc_jogR.Mode := E_JogMode.MC_JOGMODE_INCHING;
+	1:
+		gvl_axis.fbi_mc_jogR.Mode := E_JogMode.MC_JOGMODE_CONTINOUS;
+END_CASE
+
+IF gvl_visu.flg_btn_rotaryRigt THEN
+	gvl_axis.fbi_mc_jogR.JogForward := TRUE;
+ELSIF gvl_visu.flg_btn_rotaryLeft THEN
+	gvl_axis.fbi_mc_jogR.JogBackwards := TRUE;
+ELSE
+	gvl_axis.fbi_mc_jogR.JogForward := FALSE;
+	gvl_axis.fbi_mc_jogR.JogBackwards := FALSE;
+END_IF
+
+//recording position
+
+IF gvl_visu.flg_btn_rotaryPos THEN
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.origin := gvl_visu.var_rotaryPos.origin;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.pickUp := gvl_visu.var_rotaryPos.pickUp;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.set := gvl_visu.var_rotaryPos.set;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.remove := gvl_visu.var_rotaryPos.remove;
+END_IF
+
+
+IF flg_productChanged THEN
+	gvl_visu.var_rotaryPos.origin := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.origin;
+	gvl_visu.var_rotaryPos.pickUp := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.pickUp;
+	gvl_visu.var_rotaryPos.set := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.set;
+	gvl_visu.var_rotaryPos.remove := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.remove;
+END_IF
+
+
+
+CASE var_scan OF
+		0:
+		 	var_buf_productID := gvl_param.var_currentProductID;
+			var_scan := 1;
+		1:
+			IF var_buf_productID <> gvl_param.var_currentProductID THEN
+				flg_productChanged := TRUE;
+				var_scan := 2;
+			END_IF
+		2:
+			flg_productChanged := FALSE;
+			var_scan := 0;
+END_CASE
+	 
+	 
+	 
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_gm_setting">
+      <LineId Id="16" Count="0" />
+      <LineId Id="9" Count="3" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="33" Count="1" />
+      <LineId Id="36" Count="2" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="85" Count="1" />
+      <LineId Id="102" Count="3" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="106" Count="16" />
+      <LineId Id="82" Count="2" />
+      <LineId Id="15" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

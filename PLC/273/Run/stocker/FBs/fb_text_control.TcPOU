@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_text_control" Id="{7cb50088-ceb2-4ec0-9d65-077cfff19547}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_text_control
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF gvl_param.var_currentMode = eP_programMode.auto THEN
+	IF gvl_debug.out_busy THEN
+		gvl_text.var_auto_runing := "デバッグ運転中";
+	ELSE
+		gvl_text.var_auto_runing := "自動運転中";
+	END_IF
+ELSE
+	gvl_text.var_auto_runing := "自動運転開始";
+END_IF
+IF gvl_auto.autoModeStop THEN
+	gvl_text.var_stopping:= "自動運転停止中";
+ELSE
+	gvl_text.var_stopping:= "自動運転停止";
+END_IF
+IF gvl_visu.flg_btn_trayChangeDone THEN
+	gvl_text.var_trayChangeDone:= "トレイ交換完了済";
+ELSE
+	gvl_text.var_trayChangeDone:= "トレイ交換完了";
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="fb_text_control">
+      <LineId Id="10" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="12" Count="11" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

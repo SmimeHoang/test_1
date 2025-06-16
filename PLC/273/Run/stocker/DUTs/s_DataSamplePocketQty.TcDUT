@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="s_DataSamplePocketQty" Id="{6f5ea846-ee16-4ddd-ab63-8573b9f697e7}">
+    <Declaration><![CDATA[TYPE s_DataSamplePocketQty :
+STRUCT
+	pocketNo : ARRAY[0..100] OF s_DataSampleGatelength;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

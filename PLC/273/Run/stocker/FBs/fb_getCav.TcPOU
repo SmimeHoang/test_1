@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_getCav" Id="{92ace77b-bb30-4338-b21e-26db9bae8a7a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_getCav
+VAR_INPUT
+	in_flg_run: BOOL;
+END_VAR
+VAR_OUTPUT
+	out_flg_run: BOOL;
+	out_flg_Done: BOOL;
+	out_flg_error: BOOL;
+	out_var_cav: INT;
+END_VAR
+VAR
+	var_iCav : INT;
+	fbi_r_trig: R_TRIG;
+	var_process: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[out_flg_run := in_flg_run;
+fbi_r_trig(CLK:=in_flg_run , Q=> );
+IF fbi_r_trig.Q THEN
+	var_process := 1;
+END_IF
+CASE var_process OF
+	0:
+			
+	1:
+		var_iCav.0 := gvl_io.flg_bitNumber0;
+		var_iCav.1 := gvl_io.flg_bitNumber1;
+		var_iCav.2 := gvl_io.flg_bitNumber2;
+		var_iCav.3 := gvl_io.flg_bitNumber3;
+		out_var_cav := var_iCav;
+		var_process := 2;
+	2:
+		IF out_var_cav > gvl_param.var_productInfo[gvl_param.var_currentProductID].cavQty  OR out_var_cav = 0 THEN
+			out_flg_error := TRUE;
+			var_process := 4;
+		ELSE
+			var_process := 3;
+		END_IF
+	3:
+		out_flg_Done := TRUE;
+		var_process := 4;
+	4:
+		out_flg_error := FALSE;
+		out_flg_Done := FALSE;
+		var_process := 0;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="fb_getCav">
+      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="153" Count="2" />
+      <LineId Id="147" Count="0" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="156" Count="0" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="158" Count="1" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="160" Count="1" />
+      <LineId Id="149" Count="0" />
+      <LineId Id="162" Count="1" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="166" Count="1" />
+      <LineId Id="143" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fb_incjetMapping" Id="{7cb78e2b-d94f-4160-85f4-fc8c452f8fec}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_incjetMapping
+VAR_INPUT
+	IN_00 : BOOL;
+	IN_01 : BOOL;
+	IN_02 : BOOL;
+	IN_03 : BOOL;
+	IN_04 : BOOL;
+	IN_05 : BOOL;
+	IN_06 : BOOL;
+	IN_07 : BOOL;
+	IN_08 : BOOL;
+	IN_09 : BOOL;
+END_VAR
+VAR_OUTPUT
+	OUT_00 : BOOL;
+	OUT_01 : BOOL;
+	OUT_02 : BOOL;
+	OUT_03 : BOOL;
+	OUT_04 : BOOL;
+	OUT_05 : BOOL;
+	OUT_06 : BOOL;
+	OUT_07 : BOOL;
+	OUT_08 : BOOL;
+	OUT_09 : BOOL;
+	OUT_10 : BOOL;
+	OUT_11 : BOOL;
+	OUT_12 : BOOL;
+	OUT_13 : BOOL;
+	OUT_14 : BOOL;
+	OUT_15 : BOOL;
+	OUT_16 : BOOL;
+	OUT_17 : BOOL;
+	OUT_18 : BOOL;
+	OUT_19 : BOOL;
+END_VAR
+VAR_IN_OUT
+	var_productInfo : ref_productInfo;
+	var_incjetInfo : ref_incjetInfo;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[var_incjetInfo.var_msgNo := var_productInfo.incjetMsgNo;
+OUT_00 := var_incjetInfo.var_msgNo.0;
+OUT_01 := var_incjetInfo.var_msgNo.1;
+OUT_02 := var_incjetInfo.var_msgNo.2;
+OUT_03 := var_incjetInfo.var_msgNo.3;
+OUT_04 := var_incjetInfo.var_msgNo.4;
+OUT_05 := var_incjetInfo.var_msgNo.5;
+OUT_06 := var_incjetInfo.var_msgNo.6;
+OUT_07 := var_incjetInfo.var_msgNo.7;
+
+OUT_08 := var_incjetInfo.flg_denyStamp;
+//OUT_09  (stop Calendar update)
+OUT_10 := var_incjetInfo.flg_numberingCount;
+OUT_11 := var_incjetInfo.flg_numberingStop;
+OUT_12 := var_incjetInfo.flg_numberingReset;
+//OUT_13 :=
+//OUT_14 :=
+//OUT_15 :=
+//OUT_16 := msg no
+//OUT_17 := msg no
+//OUT_18 := msg no
+//OUT_19 := msg no
+
+var_incjetInfo.flg_error := gvl_visu.flg_usingTimeStamp AND IN_00;
+var_incjetInfo.flg_incFluxLow := gvl_visu.flg_usingTimeStamp AND IN_01;
+var_incjetInfo.flg_stampReady := gvl_visu.flg_usingTimeStamp AND (IN_03 OR (gvl_debug.flg_stampReady AND gvl_debug.flg_debug_run));
+var_incjetInfo.flg_stampDone := gvl_visu.flg_usingTimeStamp AND (IN_04 OR (gvl_debug.flg_stampDone AND gvl_debug.flg_debug_run));
+var_incjetInfo.flg_stampRun := gvl_visu.flg_usingTimeStamp AND IN_06;
+ ]]></ST>
+    </Implementation>
+    <LineIds Name="fb_incjetMapping">
+      <LineId Id="78" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="69" Count="6" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="79" Count="3" />
+      <LineId Id="84" Count="5" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="90" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

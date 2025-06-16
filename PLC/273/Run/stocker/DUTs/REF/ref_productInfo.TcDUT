@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_productInfo" Id="{47df360c-e5d1-48ff-b67f-0494025523b1}">
+    <Declaration><![CDATA[TYPE ref_productInfo :
+STRUCT
+	num : INT;
+	name : STRING;
+	cavQty : INT;
+	bottomPocketQty : INT;
+	vertivalPocketQty : INT ;
+	pocketSumQty : INT;
+	startCav : INT;
+	gateLength_min : INT;
+	gateLength_max : INT;
+	teachPos : ref_teachPos;
+	autoVels : s_velsXYZ;
+	manaulVels : s_velsXYZ;
+	incjetMsgNo : INT;
+	flg_mode_stocker: BOOL;
+	flg_mode_measurement: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

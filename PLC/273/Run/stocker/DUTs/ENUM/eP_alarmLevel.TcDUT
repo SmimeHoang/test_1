@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="eP_alarmLevel" Id="{af7cbbde-86b3-41b8-aab7-91c7eed89e2b}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eP_alarmLevel :
+(
+	NONE := 0,
+	INFO := 1,
+	WARNING := 2,
+	ERROR := 3
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

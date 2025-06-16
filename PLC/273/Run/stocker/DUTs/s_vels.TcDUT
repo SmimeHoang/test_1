@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="s_vels" Id="{b44c432a-9576-47bc-b099-f4a7db2ca0d1}">
+    <Declaration><![CDATA[TYPE s_vels :
+STRUCT
+	vel : LREAL := 20;
+	acc : LREAL := 20;
+	dcc : LREAL := 20;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_dataSampling" Id="{af155d5c-48a2-4f50-b7f8-e5a1b4858a11}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_dataSampling
+VAR_INPUT
+	in_flg_run: BOOL;
+	in_var_cavNo : INT;
+	in_var_pocketNo : INT;
+	in_var_gateLength : LREAL;
+	in_var_date : DT;
+	in_flg_nonDefective : BOOL;
+	in_flg_defective : BOOL;
+	in_flg_sample : BOOL;
+	in_flg_reset : BOOL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR_IN_OUT
+	ref_dataSet : s_DataSample;
+END_VAR
+VAR
+	data : s_DataSample;
+
+	fbi_r_trig: R_TRIG;
+	fbi_reset: R_TRIG;
+	var_i: INT;
+	var_pocketNO: INT;
+	var_cavNo: INT;
+
+	fbi_setQty: R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbi_r_trig(CLK:= in_flg_run, Q=> );
+fbi_reset(CLK:= in_flg_reset, Q=> );
+
+IF fbi_r_trig.Q THEN
+	IF NOT in_flg_sample THEN
+		IF in_flg_nonDefective AND NOT in_flg_defective THEN
+			ref_dataSet.SetQty.cav[in_var_cavNo].nonDefectiveQty	:= ref_dataSet.SetQty.cav[in_var_cavNo].nonDefectiveQty + 1;
+			FOR var_i := 500 TO 1 BY -1 DO
+				ref_dataSet.DataSet[var_i].cav[in_var_cavNo].pocketNo[in_var_pocketNo].gateLength	:= ref_dataSet.DataSet[var_i - 1].cav[in_var_cavNo].pocketNo[in_var_pocketNo].gateLength;
+				ref_dataSet.DataSet[var_i].cav[in_var_cavNo].pocketNo[in_var_pocketNo].setDate		:= ref_dataSet.DataSet[var_i - 1].cav[in_var_cavNo].pocketNo[in_var_pocketNo].setDate;
+				IF var_i = 1 THEN
+					ref_dataSet.DataSet[0].cav[in_var_cavNo].pocketNo[in_var_pocketNo].gateLength	:= in_var_gateLength;
+					ref_dataSet.DataSet[0].cav[in_var_cavNo].pocketNo[in_var_pocketNo].setDate		:= DT_TO_STRING(in_var_date);
+				END_IF
+			END_FOR
+		ELSIF NOT in_flg_nonDefective AND in_flg_defective THEN
+			ref_dataSet.SetQty.cav[in_var_cavNo].defectiveQty		:= ref_dataSet.SetQty.cav[in_var_cavNo].defectiveQty + 1;
+		END_IF
+	END_IF
+END_IF
+
+IF fbi_reset.Q THEN
+	FOR var_i := 0 TO 500 BY 1 DO
+		FOR var_cavNo := 0 TO 8 BY 1 DO
+			ref_dataSet.SetQty.cav[var_cavNo].nonDefectiveQty := 0;
+			ref_dataSet.SetQty.cav[var_cavNo].defectiveQty := 0;
+			FOR var_pocketNO := 0 TO 100 BY 1 DO
+				ref_dataSet.DataSet[var_i].cav[in_var_cavNo].pocketNo[in_var_pocketNo].gateLength	:= 0;
+				ref_dataSet.DataSet[var_i].cav[in_var_cavNo].pocketNo[in_var_pocketNo].setDate		:= '';
+			END_FOR
+		END_FOR
+	END_FOR
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="fb_dataSampling">
+      <LineId Id="419" Count="0" />
+      <LineId Id="421" Count="2" />
+      <LineId Id="456" Count="0" />
+      <LineId Id="452" Count="1" />
+      <LineId Id="460" Count="6" />
+      <LineId Id="459" Count="0" />
+      <LineId Id="454" Count="1" />
+      <LineId Id="451" Count="0" />
+      <LineId Id="457" Count="0" />
+      <LineId Id="432" Count="0" />
+      <LineId Id="439" Count="11" />
+      <LineId Id="61" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

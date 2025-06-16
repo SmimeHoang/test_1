@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="eP_motionDirection" Id="{73be94da-3144-42f4-8ba0-143d0c944b8e}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eP_motionDirection :
+(
+	XYZ := 1,
+	ZYX := -1,
+	Y_X_Z := 2,
+	Z_X_Y := -2
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

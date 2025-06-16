@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_mc_moveAbs" Id="{12a17fa1-8938-4395-bed6-ba6d9d3e22c4}">
+    <Declaration><![CDATA[TYPE ref_mc_moveAbs :
+STRUCT
+	Execute      : BOOL;
+    Position     : LREAL; 
+    Velocity     : LREAL; 
+    Acceleration : LREAL; 
+    Deceleration : LREAL; 
+    Jerk         : LREAL;
+    BufferMode   : MC_BufferMode;
+    Options      : ST_MoveOptions;
+	Done           : BOOL;
+    Busy           : BOOL;
+    Active         : BOOL;
+    CommandAborted : BOOL;
+    Error          : BOOL;
+    ErrorID        : UDINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

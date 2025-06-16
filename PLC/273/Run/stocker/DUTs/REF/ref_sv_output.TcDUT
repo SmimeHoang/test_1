@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_sv_output" Id="{8ca9f649-156c-4f50-a557-38b188e6134b}">
+    <Declaration><![CDATA[TYPE ref_sv_output :
+STRUCT
+	out_flg_svA:	BOOL;
+	out_flg_svB:	BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

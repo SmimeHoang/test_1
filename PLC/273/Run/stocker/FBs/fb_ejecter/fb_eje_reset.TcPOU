@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_eje_reset" Id="{be0f5e4d-ba7e-4d5a-bd36-bcbdae64764b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_eje_reset
+VAR_IN_OUT
+	var_ref_eje : ref_eje_io;
+END_VAR
+VAR_INPUT
+	in_flg_reset : BOOL;
+END_VAR
+VAR_OUTPUT
+	out_flg_resetDone: BOOL;
+END_VAR
+VAR
+
+	fbi_ton1: TON;
+	var_process: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fbi_ton1(IN:= , PT:=T#100MS , Q=> , ET=> );
+
+IF NOT in_flg_reset THEN
+	var_process := 0;
+END_IF
+CASE var_process OF
+	0:
+		IF in_flg_reset THEN
+			var_process := 1;
+		END_IF
+	1:
+		fbi_ton1.IN := FALSE;
+		var_process := 2;
+	2:	
+		fbi_ton1.IN := TRUE;
+		var_ref_eje.param.var_mutex := 0;
+		var_ref_eje.output.out_flg_ejeVac := FALSE;
+		var_ref_eje.output.out_flg_ejeBrk := FALSE;
+		IF fbi_ton1.Q THEN
+			var_process := 3;
+		END_IF
+	3:
+		out_flg_resetDone := TRUE;
+		var_process := 4;
+	4:
+		out_flg_resetDone := FALSE;
+END_CASE
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_eje_reset">
+      <LineId Id="11" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="108" Count="2" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="104" Count="3" />
+      <LineId Id="66" Count="4" />
+      <LineId Id="86" Count="1" />
+      <LineId Id="74" Count="4" />
+      <LineId Id="80" Count="3" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

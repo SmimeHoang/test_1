@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_ele_input" Id="{da6b8ab4-3463-46d4-99b8-7c120582a9f3}">
+    <Declaration><![CDATA[TYPE ref_ele_input :
+STRUCT
+	in_flg_sensA : BOOL;
+	in_flg_sensB : BOOL;
+	in_flg_sensNone : BOOL;
+	in_wire_error : bool;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_lsm_main" Id="{aca104e5-12ce-4f35-9eb1-26da1aefb6dc}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_lsm_main
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbi_mapping			:fb_mapping;
+	fbi_IO				:fb_IO;
+	fbi_modeController	:fb_modeController;
+	fbi_motorController	:fb_motorController;
+	fbi_eventController	:fb_eventController;
+	fbi_eleControllers	:fb_eleControllers;
+	fbi_svControllers	:fb_svControllers;
+	fbi_recordingSystem :fb_recordingSystem;
+	fbi_GetLocalAmsNetId: FB_GetLocalAmsNetId;
+	fbi_LocalSystemTime: FB_LocalSystemTime;
+	fbi_resetDelay: TON;
+	fb_Shutdown: NT_Shutdown;
+	fb_Reboot: NT_Reboot;
+	ShutdownStart: BOOL;
+	RebootStart: BOOL;
+	fbi_WritePersistentData: FB_WritePersistentData;
+	var_lastTIme: LREAL;
+	gvl_error_reset: BOOL;
+	fbi_productGenerater: fb_productGenerator;
+	fbi_sampleSchedule: fb_sampleSchedule;
+	test_flg: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[THIS^.fbi_mapping();
+THIS^.fbi_IO();
+THIS^.fbi_modeController();
+THIS^.fbi_eleControllers();
+THIS^.fbi_svControllers();
+THIS^.fbi_recordingSystem();
+THIS^.fbi_productGenerater();
+THIS^.fbi_motorController();
+THIS^.fbi_eventController(in_flg_run:=TRUE , out_flg_run=> );
+THIS^.fbi_modeController.p_init := fbi_resetDelay.Q ;
+gvl_axis.fbi_motionControler.p_Init := gvl_param.var_currentMode = eP_programMode.error;
+fbi_resetDelay(IN:= gvl_visu.flg_btn_projectReset , PT:=T#5S , Q=> , ET=>  );
+gvl_visu.var_projectResetLastTime :=(LREAL#5000 - TIME_TO_LREAL(fbi_resetDelay.ET))/1000;
+gvl_axis.fbi_motionControler(
+	in_flg_run:= TRUE, 
+	out_flg_run=> , 
+	var_ref_X:= gvl_axis.ref_x, 
+	var_ref_Y:= gvl_axis.ref_y, 
+	var_ref_Z:= gvl_axis.ref_z, 
+	in_flg_start:= gvl_axis.fbi_motionControler.in_flg_start, 
+	in_var_targetPosX:= , 
+	in_var_targetPosY:= , 
+	in_var_targetPosZ:= , 
+	in_var_direction:= , 
+	out_flg_busy=> , 
+	out_flg_Done=> , 
+	out_flg_moveXYDone=> );
+fbi_sampleSchedule(in_var_enableSchedule:= gvl_visu.var_enableSchedule ,
+	in_var_scheduleTimeH:= gvl_visu.var_scheduleTimeH ,
+	in_var_scheduleTimeM:= gvl_visu.var_scheduleTimeM ,
+	out_flg_sampletriger=> );
+	IF fbi_sampleSchedule.out_flg_sampletriger AND gvl_param.var_currentMode = eP_programMode.auto THEN
+		gvl_visu.flg_btn_sample := TRUE;
+	END_IF
+fbi_GetLocalAmsNetId(
+	bExecute:=TRUE , 
+	tTimeOut:= ,
+	bBusy=> , 
+	bError=> , 
+	nErrId=> , 
+	AddrString=> , 
+	AddrBytes=> );
+fbi_LocalSystemTime(
+	sNetID:=fbi_GetLocalAmsNetId.AddrString , 
+	bEnable:= TRUE, 
+	dwCycle:= , 
+	dwOpt:= , 
+	tTimeout:= , 
+	bValid=> , 
+	systemTime=> , 
+	tzID=> );
+fb_Shutdown(
+	NETID:= fbi_GetLocalAmsNetId.AddrString, 
+	DELAY:= 3, 
+	START:= ShutdownStart, 
+	TMOUT:= T#6S, 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+
+fb_Reboot(
+	NETID:= fbi_GetLocalAmsNetId.AddrString, 
+	DELAY:= 3, 
+	START:= RebootStart, 
+	TMOUT:= T#6S, 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+fbi_WritePersistentData(
+	NETID:= fbi_GetLocalAmsNetId.AddrString, 
+	PORT:= 851, 
+	START:= gvl_axis.fbi_motionControler.out_flg_Done, 
+	TMOUT:= , 
+	MODE:= , 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+gvl_visu.var_DT := SYSTEMTIME_TO_DT(fbi_LocalSystemTime.systemTime);
+gvl_visu.var_curenntGateData := DINT_TO_LREAL(gvl_io.var_gateLength)/10000;
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_lsm_main">
+      <LineId Id="597" Count="0" />
+      <LineId Id="840" Count="0" />
+      <LineId Id="599" Count="2" />
+      <LineId Id="759" Count="0" />
+      <LineId Id="785" Count="0" />
+      <LineId Id="602" Count="2" />
+      <LineId Id="812" Count="0" />
+      <LineId Id="605" Count="0" />
+      <LineId Id="733" Count="0" />
+      <LineId Id="606" Count="13" />
+      <LineId Id="894" Count="0" />
+      <LineId Id="897" Count="2" />
+      <LineId Id="927" Count="2" />
+      <LineId Id="620" Count="16" />
+      <LineId Id="659" Count="15" />
+      <LineId Id="658" Count="0" />
+      <LineId Id="710" Count="0" />
+      <LineId Id="699" Count="6" />
+      <LineId Id="697" Count="0" />
+      <LineId Id="637" Count="1" />
+      <LineId Id="867" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

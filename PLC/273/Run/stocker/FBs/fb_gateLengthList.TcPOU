@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_gateLengthList" Id="{11fd8d97-816d-46be-ad59-eafdc5658e67}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_gateLengthList
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbi_R_TRIG: R_TRIG;
+	flg_buf_gateLengthData: LREAL;
+	var_process: INT;
+	var_i: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF gvl_gm.var_buf_measurementCav <> 0 THEN
+	fbi_R_TRIG(CLK:= gvl_auto.flg_gateData_Tx, Q=> );
+END_IF
+
+
+CASE var_process OF
+	0:
+		IF fbi_R_TRIG.Q THEN
+			flg_buf_gateLengthData := DINT_TO_LREAL(gvl_io.var_gateLength)/10000;
+			IF gvl_io.var_gateLength > gvl_param.var_productInfo[gvl_param.var_currentProductID].gateLength_max OR gvl_io.var_gateLength < gvl_param.var_productInfo[gvl_param.var_currentProductID].gateLength_min THEN
+				flg_buf_gateLengthData := flg_buf_gateLengthData * -1;
+			END_IF
+			IF gvl_io.flg_gm_fiberSens THEN
+				var_process := 10;
+			END_IF
+		END_IF
+	10:
+		FOR var_i := 49 TO 1 BY -1 DO
+			IF gvl_visu.flg_btn_usingMeasurementSystem THEN
+				gvl_visu.var_gateLengthList[var_i] := gvl_visu.var_gateLengthList[var_i - 1];
+				gvl_visu.var_gateLengthListCav[gvl_gm.var_buf_measurementCav][var_i] := gvl_visu.var_gateLengthListCav[gvl_gm.var_buf_measurementCav][var_i - 1];
+				IF var_i = 1 THEN
+					gvl_visu.var_gateLengthList[0] := INT_TO_REAL(LREAL_TO_INT(flg_buf_gateLengthData*10000)/100)/100;
+					gvl_visu.var_gateLengthListCav[gvl_gm.var_buf_measurementCav][0] := INT_TO_REAL(LREAL_TO_INT(flg_buf_gateLengthData*10000)/100)/100;		
+					var_process := 0;
+				END_IF
+			ELSE
+				gvl_visu.var_gateLengthList[var_i] := gvl_visu.var_gateLengthList[var_i - 1];
+				gvl_visu.var_gateLengthListCav[gvl_auto.cavNo][var_i] := gvl_visu.var_gateLengthListCav[gvl_gm.var_buf_measurementCav][var_i - 1];
+				IF var_i = 1 THEN
+					gvl_visu.var_gateLengthList[0] := INT_TO_REAL(LREAL_TO_INT(flg_buf_gateLengthData*10000)/100)/100;
+					gvl_visu.var_gateLengthListCav[gvl_auto.cavNo][0] := INT_TO_REAL(LREAL_TO_INT(flg_buf_gateLengthData*10000)/100)/100;			
+					var_process := 0;
+				END_IF
+			END_IF
+		END_FOR
+	20:
+		
+END_CASE
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_gateLengthList">
+      <LineId Id="112" Count="1" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="39" Count="2" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="91" Count="1" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="87" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

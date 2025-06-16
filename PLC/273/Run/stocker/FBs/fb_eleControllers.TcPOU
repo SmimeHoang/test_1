@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_eleControllers" Id="{ee2a9b3a-1c3d-430d-9a31-a32b100ce462}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_eleControllers
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[gvl_elecylinder.fbi_axisTransport(
+	var_ref_ele:= gvl_elecylinder.ref_axis_transport, 
+	in_flg_run:= , 
+	in_var_moveMode:= , 
+	in_flg_pause:= , 
+	out_flg_run=> , 
+	out_flg_busy=> , 
+	out_flg_Done=> , 
+	out_flg_error=> );
+gvl_elecylinder.fbi_axisSample(
+	var_ref_ele:= gvl_elecylinder.ref_axis_sample, 
+	in_flg_run:= , 
+	in_var_moveMode:= , 
+	in_flg_pause:= NOT gvl_io.flg_frontSaftyDoor AND gvl_param.var_currentMode = eP_programMode.auto, 
+	out_flg_run=> , 
+	out_flg_busy=> , 
+	out_flg_Done=> , 
+	out_flg_error=> );
+gvl_elecylinder.fbi_axisTrayChange(
+	var_ref_ele:= gvl_elecylinder.ref_axis_trayChange, 
+	in_flg_run:= , 
+	in_var_moveMode:= , 
+	in_flg_pause:=  NOT gvl_io.flg_frontSaftyDoor AND gvl_param.var_currentMode = eP_programMode.auto, 
+	out_flg_run=> , 
+	out_flg_busy=> , 
+	out_flg_Done=> , 
+	out_flg_error=> );
+gvl_elecylinder.fbi_axisRotary(
+	var_ref_ele:= gvl_elecylinder.ref_axis_rotary, 
+	in_flg_run:= , 
+	in_var_moveMode:= , 
+	in_flg_pause:= , 
+	out_flg_run=> , 
+	out_flg_busy=> , 
+	out_flg_Done=> , 
+	out_flg_error=> );
+gvl_elecylinder.fbi_gm_axisPickUp(
+	var_ref_ele:= gvl_elecylinder.ref_gm_axisPickUp, 
+	in_flg_run:= , 
+	in_var_moveMode:= , 
+	in_flg_pause:= , 
+	out_flg_run=> , 
+	out_flg_busy=> , 
+	out_flg_Done=> , 
+	out_flg_error=> );
+gvl_elecylinder.fbi_gm_axisTransport(
+	var_ref_ele:= gvl_elecylinder.ref_gm_axisTransport, 
+	in_flg_run:= , 
+	in_var_moveMode:= , 
+	in_flg_pause:= , 
+	out_flg_run=> , 
+	out_flg_busy=> , 
+	out_flg_Done=> , 
+	out_flg_error=> );
+	
+IF gvl_elecylinder.ref_axis_trayChange.input.in_flg_sensA THEN
+	gvl_param.var_currentTrayPos := 1;
+	gvl_visu.var_currentTableMsg := "上段";
+ELSIF gvl_elecylinder.ref_axis_trayChange.input.in_flg_sensB THEN
+	gvl_param.var_currentTrayPos := 2;
+	gvl_visu.var_currentTableMsg := "下段";
+ELSE 
+	gvl_param.var_currentTrayPos := 0;
+	gvl_visu.var_currentTableMsg := "テーブル移動中...";
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_eleControllers">
+      <LineId Id="18" Count="7" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="27" Count="7" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="37" Count="7" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="45" Count="7" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="54" Count="7" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="63" Count="7" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="73" Count="1" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="76" Count="1" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="78" Count="1" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="97" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

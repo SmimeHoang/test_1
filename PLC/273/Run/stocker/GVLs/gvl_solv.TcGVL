@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="gvl_solv" Id="{9cb087cb-89ab-41ed-a0c0-005aa828d7f5}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL	
+	fbi_ejector 	: fb_eje_controller;
+	fbi_chuck 		: fb_sv_controller;
+	fbi_push 		: fb_sv_controller;
+	fbi_gm_ejector 	: fb_eje_controller;
+	fbi_gm_chuck 	: fb_sv_controller;
+	fbi_gm_push 	: fb_sv_controller;
+	fbi_gm_rotary 	: fb_sv_controller;
+	fbi_gm_pickup 	: fb_sv_controller;
+	fbi_gm_stamp 	: fb_sv_controller;
+
+	ref_ejector 	: ref_eje_io;
+	ref_chuck 		: ref_sv_io;
+	ref_push 		: ref_sv_io;
+	ref_gm_ejctor 	: ref_eje_io;
+	ref_gm_chuck 	: ref_sv_io;
+	ref_gm_push 	: ref_sv_io;
+	ref_gm_rotary 	: ref_sv_io;
+	ref_gm_pickUp 	: ref_sv_io;
+	ref_gm_stamp 	: ref_sv_io;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

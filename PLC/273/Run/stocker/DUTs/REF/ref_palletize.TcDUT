@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_palletize" Id="{2eed6b72-be6c-4a61-b2b8-89ac0aeab4a5}">
+    <Declaration><![CDATA[TYPE ref_palletize :
+STRUCT
+	Pos : ARRAY[1..4] OF ref_xyz ;
+	teachingDetail : ref_teachingDetail;
+	teachingDetailVels : s_velsXYZ;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

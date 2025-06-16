@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="gvl_axis" Id="{12e3aa41-10dc-4643-9285-0aad86f4d070}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	axisX : AXIS_REF;
+	axisY : AXIS_REF;
+	axisZ : AXIS_REF;
+	axisR : AXIS_REF;
+	
+	fbi_mc_powerX :MC_Power;
+	fbi_mc_powerY :MC_Power;
+	fbi_mc_powerZ :MC_Power;
+	fbi_mc_powerR :MC_Power;
+	
+	fbi_mc_absX : MC_MoveAbsolute;
+	fbi_mc_absY : MC_MoveAbsolute;
+	fbi_mc_absZ : MC_MoveAbsolute;
+	fbi_mc_absR : MC_MoveAbsolute;
+	
+	ref_x : ref_mc_moveAbs;
+	ref_y : ref_mc_moveAbs;
+	ref_z : ref_mc_moveAbs;
+	ref_r : ref_mc_moveAbs;
+	
+	fbi_mc_jogX : MC_Jog;
+	fbi_mc_jogY : MC_Jog;
+	fbi_mc_jogZ : MC_Jog;
+	fbi_mc_jogR : MC_Jog;
+	
+	fbi_motionControler: fb_motionController;
+	
+	flg_motorReady: BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

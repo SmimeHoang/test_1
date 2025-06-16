@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="s_timeSchedule" Id="{90ff4847-b2be-4433-a857-0c8dd5988bec}">
+    <Declaration><![CDATA[TYPE s_timeSchedule :
+STRUCT
+	hour : WORD;
+	minute: WORD;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

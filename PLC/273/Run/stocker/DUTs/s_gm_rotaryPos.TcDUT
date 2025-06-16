@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="s_gm_rotaryPos" Id="{2a5cfd23-108b-4e9c-892a-04126b17c814}">
+    <Declaration><![CDATA[TYPE s_gm_rotaryPos :
+STRUCT
+	origin	: LREAL;
+	pickUp	: LREAL;
+	set		: LREAL;
+	remove  : LREAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

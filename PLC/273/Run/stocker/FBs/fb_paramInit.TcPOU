@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_paramInit" Id="{1adc0160-05ed-48ad-86d4-e6fa64ed0eb8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_paramInit
+VAR_INPUT
+	in_flg_run : BOOL;
+END_VAR
+VAR_OUTPUT
+	out_flg_done : BOOL;
+END_VAR
+VAR
+	flg_busy: bool;
+	fbi_eje_reset: fb_eje_reset;
+	fbi_r_TRIG: R_TRIG;
+	fbi_sv_reset: fb_sv_reset;
+	fbi_sv_pushReset: fb_sv_reset;
+	fbi_ele_reset: ARRAY[1..6] OF fb_ele_reset;
+	fbi_ton1: TON;
+	fbi_ton2: TON;
+	var_process: INT;
+	fbi_gm_eje_reset : fb_eje_reset;
+	fbi_gm_sv_reset: fb_sv_reset;
+	fbi_gm_sv_pushReset: fb_sv_reset;
+	fbi_gm_sv_rotaryReset: fb_sv_reset;
+	fbi_gm_sv_pickUpReset: fb_sv_reset;
+	fbi_gm_sv_stampReset: fb_sv_reset;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbi_r_TRIG(CLK:= in_flg_run, Q=> );
+IF fbi_r_TRIG.Q THEN
+	
+	var_process := 0;
+	flg_busy := TRUE;
+END_IF
+IF NOT in_flg_run THEN
+	fbi_ton1.in := FALSE;
+	fbi_ton2.IN := FALSE;
+	var_process := 0;
+	out_flg_done := FALSE;
+	flg_busy := FALSE;
+END_IF
+//motor
+CASE var_process OF
+	0:
+		gvl_visu.flg_powerOn := FALSE;
+		gvl_axis.ref_x.Execute := FALSE;
+		gvl_axis.ref_y.Execute := FALSE;
+		gvl_axis.ref_z.Execute := FALSE;
+		gvl_axis.ref_r.Execute := FALSE;
+		
+		gvl_axis.fbi_mc_jogX.JogForward := FALSE;
+		gvl_axis.fbi_mc_jogX.JogBackwards := FALSE;
+		gvl_axis.fbi_mc_jogY.JogForward := FALSE;
+		gvl_axis.fbi_mc_jogY.JogBackwards := FALSE;
+		gvl_axis.fbi_mc_jogZ.JogForward := FALSE;
+		gvl_axis.fbi_mc_jogZ.JogBackwards := FALSE;
+		gvl_axis.fbi_mc_jogR.JogForward := FALSE;
+		gvl_axis.fbi_mc_jogR.JogBackwards := FALSE;
+		
+		gvl_axis.fbi_motionControler.in_flg_start := FALSE;
+		
+		//elecylinder , solv
+		gvl_solv.fbi_ejector.in_flg_run := FALSE;
+		gvl_solv.fbi_chuck.in_flg_run := FALSE;
+		gvl_solv.fbi_push.in_flg_run := FALSE;
+		
+		
+		gvl_solv.fbi_gm_ejector.in_flg_run := FALSE;
+		gvl_solv.fbi_gm_chuck.in_flg_run := FALSE;
+		gvl_solv.fbi_gm_push.in_flg_run := FALSE;
+		gvl_solv.fbi_gm_rotary.in_flg_run := FALSE;
+		gvl_solv.fbi_gm_pickup.in_flg_run := FALSE;
+		gvl_solv.fbi_gm_stamp.in_flg_run := FALSE;
+		
+		gvl_elecylinder.fbi_axisTransport.in_flg_run := FALSE;
+		gvl_elecylinder.fbi_axisSample.in_flg_run := FALSE;
+		gvl_elecylinder.fbi_axisTrayChange.in_flg_run := FALSE;
+		gvl_elecylinder.fbi_axisRotary.in_flg_run := FALSE;
+		gvl_elecylinder.fbi_gm_axisPickUp.in_flg_run := FALSE;
+		gvl_elecylinder.fbi_gm_axisTransport.in_flg_run := FALSE;
+		fbi_ton2.IN := TRUE;
+		
+		gvl_solv.fbi_ejector.in_var_vacMode := eP_ejeVacMode.halt;
+		gvl_solv.fbi_chuck.in_var_moveMode := eP_svMovemode.stop;
+		gvl_solv.fbi_push.in_var_moveMode := eP_svMovemode.stop;
+		
+		gvl_solv.fbi_gm_ejector.in_var_vacMode := eP_ejeVacMode.halt;
+		gvl_solv.fbi_gm_chuck.in_var_moveMode := eP_svMovemode.stop;
+		gvl_solv.fbi_gm_push.in_var_moveMode := eP_svMovemode.stop;
+		gvl_solv.fbi_gm_rotary.in_var_moveMode := eP_svMovemode.stop;
+		gvl_solv.fbi_gm_pickup.in_var_moveMode := eP_svMovemode.stop;
+		gvl_solv.fbi_gm_stamp.in_var_moveMode := eP_svMovemode.stop;
+		
+		
+		gvl_elecylinder.fbi_axisTransport.in_var_moveMode := eP_eleMovemode.stop;
+		gvl_elecylinder.fbi_axisSample.in_var_moveMode := eP_eleMovemode.stop;
+		gvl_elecylinder.fbi_axisTrayChange.in_var_moveMode := eP_eleMovemode.stop;
+		gvl_elecylinder.fbi_axisRotary.in_var_moveMode := eP_eleMovemode.stop;
+		gvl_elecylinder.fbi_gm_axisPickUp.in_var_moveMode := eP_eleMovemode.stop;
+		gvl_elecylinder.fbi_gm_axisTransport.in_var_moveMode := eP_eleMovemode.stop;
+		
+		gvl_io.flg_requestLens := FALSE;
+
+		
+		IF fbi_ton2.Q THEN
+			var_process := 1;
+		END_IF
+	1:
+	
+		gvl_axis.fbi_motionControler.p_Init := FALSE;
+		var_process := 2;
+
+	2:
+		flg_busy := FALSE;
+		fbi_ton1.IN := TRUE;
+		out_flg_done := TRUE;
+		var_process := 3;
+	3:
+		out_flg_done := FALSE;
+END_CASE
+fbi_ton1(IN:= , PT:=T#500MS , Q=> , ET=> );
+fbi_ton2(IN:= , PT:=T#500MS , Q=> , ET=> );
+fbi_eje_reset(var_ref_eje:=gvl_solv.ref_ejector , in_flg_reset:=flg_busy , out_flg_resetDone=> );
+fbi_sv_reset(var_ref_sv:= gvl_solv.ref_chuck, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_sv_pushReset(var_ref_sv:= gvl_solv.ref_push, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_gm_eje_reset(var_ref_eje:=gvl_solv.ref_gm_ejctor, in_flg_reset:=flg_busy , out_flg_resetDone=> );
+fbi_gm_sv_reset(var_ref_sv:= gvl_solv.ref_gm_chuck, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_gm_sv_pushReset(var_ref_sv:= gvl_solv.ref_gm_push, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_gm_sv_rotaryReset(var_ref_sv:= gvl_solv.ref_gm_rotary, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_gm_sv_pickUpReset(var_ref_sv:= gvl_solv.ref_gm_pickUp, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_gm_sv_stampReset(var_ref_sv:= gvl_solv.ref_gm_stamp, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_ele_reset[1](var_ref_ele:= gvl_elecylinder.ref_axis_transport, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_ele_reset[2](var_ref_ele:= gvl_elecylinder.ref_axis_sample, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_ele_reset[3](var_ref_ele:= gvl_elecylinder.ref_axis_trayChange, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_ele_reset[4](var_ref_ele:= gvl_elecylinder.ref_axis_rotary, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_ele_reset[5](var_ref_ele:= gvl_elecylinder.ref_gm_axisPickUp, in_flg_reset:= flg_busy, out_flg_resetDone=> );
+fbi_ele_reset[6](var_ref_ele:= gvl_elecylinder.ref_gm_axisTransport, in_flg_reset:= flg_busy, out_flg_resetDone=> );]]></ST>
+    </Implementation>
+    <LineIds Name="fb_paramInit">
+      <LineId Id="10" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="225" Count="0" />
+      <LineId Id="422" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="435" Count="0" />
+      <LineId Id="440" Count="1" />
+      <LineId Id="436" Count="0" />
+      <LineId Id="439" Count="0" />
+      <LineId Id="438" Count="0" />
+      <LineId Id="437" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="227" Count="1" />
+      <LineId Id="231" Count="3" />
+      <LineId Id="305" Count="0" />
+      <LineId Id="235" Count="6" />
+      <LineId Id="306" Count="1" />
+      <LineId Id="242" Count="3" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="249" Count="0" />
+      <LineId Id="251" Count="0" />
+      <LineId Id="375" Count="0" />
+      <LineId Id="377" Count="1" />
+      <LineId Id="380" Count="0" />
+      <LineId Id="376" Count="0" />
+      <LineId Id="363" Count="0" />
+      <LineId Id="463" Count="1" />
+      <LineId Id="252" Count="1" />
+      <LineId Id="255" Count="0" />
+      <LineId Id="257" Count="0" />
+      <LineId Id="339" Count="0" />
+      <LineId Id="230" Count="0" />
+      <LineId Id="312" Count="0" />
+      <LineId Id="309" Count="0" />
+      <LineId Id="359" Count="0" />
+      <LineId Id="370" Count="0" />
+      <LineId Id="373" Count="1" />
+      <LineId Id="394" Count="0" />
+      <LineId Id="396" Count="1" />
+      <LineId Id="395" Count="0" />
+      <LineId Id="465" Count="2" />
+      <LineId Id="372" Count="0" />
+      <LineId Id="371" Count="0" />
+      <LineId Id="362" Count="0" />
+      <LineId Id="365" Count="4" />
+      <LineId Id="385" Count="0" />
+      <LineId Id="364" Count="0" />
+      <LineId Id="361" Count="0" />
+      <LineId Id="360" Count="0" />
+      <LineId Id="317" Count="2" />
+      <LineId Id="260" Count="0" />
+      <LineId Id="267" Count="1" />
+      <LineId Id="270" Count="0" />
+      <LineId Id="261" Count="0" />
+      <LineId Id="273" Count="0" />
+      <LineId Id="284" Count="0" />
+      <LineId Id="277" Count="0" />
+      <LineId Id="275" Count="0" />
+      <LineId Id="279" Count="0" />
+      <LineId Id="274" Count="0" />
+      <LineId Id="281" Count="0" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="313" Count="0" />
+      <LineId Id="424" Count="2" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="427" Count="1" />
+      <LineId Id="471" Count="2" />
+      <LineId Id="429" Count="5" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

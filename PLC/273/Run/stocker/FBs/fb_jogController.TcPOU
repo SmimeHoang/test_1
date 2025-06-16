@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_jogController" Id="{4c4236a0-0b25-47e9-9a65-4d6b26e39607}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_jogController
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE gvl_visu.var_jofAxis OF
+		eP_xyz.x:
+			IF gvl_visu.flg_btn_moveDirct = eP_direction.positive OR gvl_io.flg_btnGreen THEN
+				gvl_axis.fbi_mc_jogX.JogForward := TRUE;
+				gvl_axis.fbi_mc_jogX.JogBackwards := FALSE;
+			ELSIF gvl_visu.flg_btn_moveDirct = eP_direction.negative OR gvl_io.flg_btnRed THEN
+				gvl_axis.fbi_mc_jogX.JogForward := FALSE;
+				gvl_axis.fbi_mc_jogX.JogBackwards := TRUE;
+			ELSE
+				gvl_axis.fbi_mc_jogX.JogForward := FALSE;
+				gvl_axis.fbi_mc_jogX.JogBackwards := FALSE;
+			END_IF
+		eP_xyz.y:
+			IF gvl_visu.flg_btn_moveDirct = eP_direction.positive OR gvl_io.flg_btnGreen THEN
+				gvl_axis.fbi_mc_jogY.JogForward := TRUE;
+				gvl_axis.fbi_mc_jogY.JogBackwards := FALSE;
+			ELSIF gvl_visu.flg_btn_moveDirct = eP_direction.negative OR gvl_io.flg_btnRed THEN
+				gvl_axis.fbi_mc_jogY.JogForward := FALSE;
+				gvl_axis.fbi_mc_jogY.JogBackwards := TRUE;
+			ELSE
+				gvl_axis.fbi_mc_jogY.JogForward := FALSE;
+				gvl_axis.fbi_mc_jogY.JogBackwards := FALSE;
+			END_IF
+		eP_xyz.z:
+			IF gvl_visu.flg_btn_moveDirct = eP_direction.positive OR gvl_io.flg_btnGreen THEN
+				gvl_axis.fbi_mc_jogZ.JogForward := TRUE;
+				gvl_axis.fbi_mc_jogZ.JogBackwards := FALSE;
+			ELSIF gvl_visu.flg_btn_moveDirct = eP_direction.negative OR gvl_io.flg_btnRed THEN
+				gvl_axis.fbi_mc_jogZ.JogForward := FALSE;
+				gvl_axis.fbi_mc_jogZ.JogBackwards := TRUE;
+			ELSE
+				gvl_axis.fbi_mc_jogZ.JogForward := FALSE;
+				gvl_axis.fbi_mc_jogZ.JogBackwards := FALSE;
+			END_IF
+END_CASE
+CASE gvl_visu.var_radio_jogMode OF
+	0:
+		gvl_axis.fbi_mc_jogX.Mode := E_JogMode.MC_JOGMODE_INCHING;
+		gvl_axis.fbi_mc_jogY.Mode := E_JogMode.MC_JOGMODE_INCHING;
+		gvl_axis.fbi_mc_jogZ.Mode := E_JogMode.MC_JOGMODE_INCHING;
+	1:
+		gvl_axis.fbi_mc_jogX.Mode := E_JogMode.MC_JOGMODE_CONTINOUS;
+		gvl_axis.fbi_mc_jogY.Mode := E_JogMode.MC_JOGMODE_CONTINOUS;
+		gvl_axis.fbi_mc_jogZ.Mode := E_JogMode.MC_JOGMODE_CONTINOUS;
+END_CASE
+gvl_axis.fbi_mc_jogX.Position := gvl_visu.var_in_inch;
+gvl_axis.fbi_mc_jogY.Position := gvl_visu.var_in_inch;
+gvl_axis.fbi_mc_jogZ.Position := gvl_visu.var_in_inch;
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_jogController">
+      <LineId Id="10" Count="34" />
+      <LineId Id="53" Count="1" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="63" Count="1" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="65" Count="1" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="68" Count="1" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

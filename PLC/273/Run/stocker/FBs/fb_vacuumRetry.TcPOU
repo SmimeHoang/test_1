@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_vacuumRetry" Id="{6c7fb780-0775-42c1-93d5-a5c9daeec520}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_vacuumRetry
+VAR_INPUT
+	in_flg_run: BOOL;
+END_VAR
+VAR_OUTPUT
+	out_flg_faied: BOOL;
+	out_flg_Done: BOOL;
+END_VAR
+VAR
+	fbi_flg_run: R_TRIG;
+	var_process: INT;
+	var_retryTimes: INT;
+	flg_chuckDone: BOOL;
+	flg_pushDone: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbi_flg_run(CLK:= in_flg_run, Q=> );
+IF fbi_flg_run.Q  THEN
+	var_process := 1;
+END_IF
+IF NOT in_flg_run THEN
+	out_flg_done := FALSE;
+	out_flg_faied := FALSE;
+	flg_chuckDone := FALSE;
+	flg_pushDone := FALSE;
+	var_retryTimes := 0;
+END_IF
+CASE var_process OF 
+	1:
+		gvl_axis.fbi_motionControler.in_flg_start := FALSE;
+		gvl_axis.fbi_motionControler.in_var_targetPosX := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.x;
+		gvl_axis.fbi_motionControler.in_var_targetPosY := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.y;
+		gvl_axis.fbi_motionControler.in_var_targetPosZ := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.z;
+		gvl_axis.fbi_motionControler.in_var_direction := eP_motionDirection.XYZ;
+		gvl_solv.fbi_chuck.in_flg_run := FALSE;
+		gvl_solv.fbi_chuck.in_var_moveMode := eP_svMoveMode.svB;
+		gvl_solv.fbi_push.in_flg_run := FALSE;
+		gvl_solv.fbi_push.in_var_moveMode := eP_svMoveMode.svB;
+		flg_chuckDone := FALSE;
+		flg_pushDone := FALSE;
+		var_process := 2;
+	2:
+		gvl_solv.fbi_push.in_flg_run := TRUE;
+		gvl_solv.fbi_chuck.in_flg_run := TRUE;
+		var_process := 3;
+	3:
+		IF gvl_solv.fbi_chuck.out_flg_Done THEN
+			flg_chuckDone := TRUE;
+		END_IF
+		IF gvl_solv.fbi_push.out_flg_Done THEN
+			flg_pushDone := TRUE;
+		END_IF
+		IF flg_pushDone AND flg_chuckDone THEN
+			gvl_axis.fbi_motionControler.in_flg_start := TRUE;
+			var_process := 4;
+		END_IF
+	4:
+		IF gvl_axis.fbi_motionControler.out_flg_Done THEN
+			gvl_axis.fbi_motionControler.in_flg_start := FALSE;
+			var_process := 5;
+		END_IF
+	5:
+		gvl_axis.fbi_motionControler.in_flg_start := FALSE;
+		gvl_axis.fbi_motionControler.in_var_targetPosX := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.x;
+		gvl_axis.fbi_motionControler.in_var_targetPosY := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.y;
+		gvl_axis.fbi_motionControler.in_var_targetPosZ := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.z;
+		gvl_axis.fbi_motionControler.in_var_direction := eP_motionDirection.ZYX;
+		gvl_solv.fbi_chuck.in_flg_run := FALSE;
+		gvl_solv.fbi_chuck.in_var_moveMode := eP_svMoveMode.svA;
+		gvl_solv.fbi_push.in_flg_run := FALSE;
+		gvl_solv.fbi_push.in_var_moveMode := eP_svMoveMode.svA;
+		flg_chuckDone := FALSE;
+		flg_pushDone := FALSE;
+		var_process := 6;
+	6:
+		gvl_solv.fbi_chuck.in_flg_run := TRUE;
+		gvl_solv.fbi_push.in_flg_run := TRUE;
+		IF gvl_solv.fbi_chuck.out_flg_Done THEN
+			flg_chuckDone := TRUE;
+		END_IF
+		IF gvl_solv.fbi_push.out_flg_Done THEN
+			flg_pushDone := TRUE;
+		END_IF
+		IF flg_pushDone AND flg_chuckDone THEN
+			gvl_axis.fbi_motionControler.in_flg_start := TRUE;
+			var_process := 7;
+		END_IF
+	7:
+		IF gvl_axis.fbi_motionControler.out_flg_Done THEN
+			gvl_axis.fbi_motionControler.in_flg_start := FALSE;
+			var_process := 8;
+		END_IF
+	8:
+		IF gvl_solv.ref_ejector.input.in_flg_sensVac THEN
+			var_process := 20;
+		ELSE
+			var_process := 9;
+		END_IF
+	9:
+		IF var_retryTimes < 3 THEN
+			var_retryTimes := var_retryTimes + 1;
+			var_process := 1;
+		ELSE
+			gvl_solv.fbi_ejector.in_flg_run := FALSE;
+			gvl_solv.fbi_ejector.in_var_vacMode := eP_ejevacMode.vacON;
+			var_process := 10;
+		END_IF
+	10:
+		gvl_solv.fbi_ejector.in_flg_run := TRUE;
+		var_process := 11;
+	20:
+	
+		out_flg_Done := TRUE;
+		var_process := 21;
+	21:
+		out_flg_Done := FALSE;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="fb_vacuumRetry">
+      <LineId Id="15" Count="0" />
+      <LineId Id="9" Count="2" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="187" Count="1" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="165" Count="3" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="169" Count="1" />
+      <LineId Id="172" Count="1" />
+      <LineId Id="189" Count="1" />
+      <LineId Id="174" Count="0" />
+      <LineId Id="171" Count="0" />
+      <LineId Id="175" Count="6" />
+      <LineId Id="183" Count="2" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="192" Count="2" />
+      <LineId Id="231" Count="2" />
+      <LineId Id="199" Count="0" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="207" Count="3" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="212" Count="2" />
+      <LineId Id="211" Count="0" />
+      <LineId Id="203" Count="0" />
+      <LineId Id="215" Count="2" />
+      <LineId Id="258" Count="0" />
+      <LineId Id="257" Count="0" />
+      <LineId Id="219" Count="8" />
+      <LineId Id="218" Count="0" />
+      <LineId Id="204" Count="0" />
+      <LineId Id="235" Count="2" />
+      <LineId Id="234" Count="0" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="238" Count="1" />
+      <LineId Id="241" Count="1" />
+      <LineId Id="240" Count="0" />
+      <LineId Id="206" Count="0" />
+      <LineId Id="243" Count="0" />
+      <LineId Id="245" Count="0" />
+      <LineId Id="247" Count="1" />
+      <LineId Id="252" Count="1" />
+      <LineId Id="249" Count="0" />
+      <LineId Id="246" Count="0" />
+      <LineId Id="250" Count="1" />
+      <LineId Id="254" Count="0" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="262" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="259" Count="2" />
+      <LineId Id="130" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

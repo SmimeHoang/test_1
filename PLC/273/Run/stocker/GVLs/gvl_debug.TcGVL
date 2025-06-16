@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="gvl_debug" Id="{44a49856-691a-49d2-99e9-9c2b5c4c6ce2}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	gateLengthISSuccessed	: BOOL;
+	dummySignal				: BOOL;
+	lensSetDone				: BOOL;
+	flg_debug_run			: BOOL;
+	var_cav					: INT;
+	out_busy			    : BOOL;
+	out_lensSetDone			: BOOL;
+	out_fiberSens			: BOOL;
+	cavConecctSkip			: BOOL;
+	flg_passingMeasurement	: BOOL;
+	flg_stampReady: BOOL;
+	flg_stampDone: BOOL;
+	flg_check_quality: BOOL;
+	flg_to_measurement : BOOL;
+	flg_to_stocker : BOOL;
+	flg_to_demand: BOOL;
+	flg_to_acquired: BOOL;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

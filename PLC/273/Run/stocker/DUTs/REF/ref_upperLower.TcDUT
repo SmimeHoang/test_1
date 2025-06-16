@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_upperLower" Id="{8e070547-316d-4358-be46-fcf60ea7a436}">
+    <Declaration><![CDATA[TYPE ref_upperLower :
+STRUCT
+	upperLower : ARRAY[1..2] OF ref_cav ;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

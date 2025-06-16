@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_recordingSystem" Id="{8ec5b78e-9b0e-4a96-b79a-9192cd279c95}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_recordingSystem
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbi_r_trigPalletize: R_TRIG;
+	fbi_r_trigSample: R_TRIG;
+	var_i: INT;
+	fbi_r_trigP1: R_TRIG;
+	fbi_r_trigP2: R_TRIG;
+	fbi_r_trigP3: R_TRIG;
+	var_buf_productNum: INT;
+	var_scan: INT := 1;
+	flg_productChanged: BOOL;
+	var_scan2: INT;
+	var_buf_cavNum: INT;
+	var_scan3: INT := 1;
+	var_buf_sapleCavNum: INT;
+	flg_sampleCavChanged: BOOL;
+	fbi_r_trigP4: R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+	 CASE var_scan OF
+		0:
+		 	var_buf_productNum := gvl_param.var_currentProductID;
+			var_scan := 1;
+		1:
+			IF var_buf_productNum <> gvl_param.var_currentProductID THEN
+				flg_productChanged := TRUE;
+				var_scan := 2;
+			END_IF
+		2:
+			flg_productChanged := FALSE;
+			var_scan := 0;
+	 END_CASE
+	 
+	  CASE var_scan2 OF
+		0:
+		 	var_buf_cavNum := gvl_visu.var_in_cavNo;
+			var_scan2 := 1;
+		1:
+			IF var_buf_cavNum <>  gvl_visu.var_in_cavNo THEN
+				flg_productChanged := TRUE;
+				var_scan2 := 2;
+			END_IF
+		2:
+			flg_productChanged := FALSE;
+			var_scan2 := 0;
+	 END_CASE
+
+	CASE var_scan3 OF
+		0:
+		 	var_buf_sapleCavNum := gvl_visu.var_in_sampleCavNo;
+			var_scan3 := 1;
+		1:
+			IF var_buf_sapleCavNum <>  gvl_visu.var_in_sampleCavNo THEN
+				flg_sampleCavChanged := TRUE;
+				var_scan3 := 2;
+			END_IF
+		2:
+			flg_sampleCavChanged := FALSE;
+			var_scan3 := 0;
+	 END_CASE
+
+//saving triger
+fbi_r_trigPalletize(CLK:=gvl_visu.flg_btn_savePalletize , Q=> );
+fbi_r_trigSample(CLK:=gvl_visu.flg_btn_saveSample , Q=> );
+//loading triger
+fbi_r_trigP1(CLK:= gvl_param.var_currentTrayPos = 1 OR gvl_param.var_currentTrayPos = 2, 
+				Q=> );
+fbi_r_trigP3(CLK:=  flg_productChanged, 
+				Q=> );
+fbi_r_trigP4(CLK:=  flg_sampleCavChanged, 
+				Q=> );
+//save
+IF fbi_r_trigPalletize.Q THEN
+	FOR var_i := 1 TO 4 BY 1 DO
+		gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].Pos[var_i].x := gvl_visu.var_in_palletizePos.Pos[var_i].x;
+		gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].Pos[var_i].y := gvl_visu.var_in_palletizePos.Pos[var_i].y;
+		gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].Pos[var_i].z := gvl_visu.var_in_palletizePos.Pos[var_i].z;
+	END_FOR
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.x := gvl_visu.var_in_initialPos.x;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.y := gvl_visu.var_in_initialPos.y;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.z := gvl_visu.var_in_initialPos.z;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.remove.x := gvl_visu.var_in_removePos.x;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.remove.y := gvl_visu.var_in_removePos.y;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.remove.z := gvl_visu.var_in_removePos.z;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.x := gvl_visu.var_in_pickUpPos.x;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.y := gvl_visu.var_in_pickUpPos.y;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.z := gvl_visu.var_in_pickUpPos.z;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.passingPos.x := gvl_visu.var_in_teachingDetail.passingPos.x;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.passingPos.y := gvl_visu.var_in_teachingDetail.passingPos.y;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.passingPos.z := gvl_visu.var_in_teachingDetail.passingPos.z;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.settingPos.x := gvl_visu.var_in_teachingDetail.settingPos.x;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.settingPos.y := gvl_visu.var_in_teachingDetail.settingPos.y;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.settingPos.z := gvl_visu.var_in_teachingDetail.settingPos.z; 
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetailVels.x.vel := gvl_visu.var_in_teachingDetailVels.x.vel;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetailVels.y.vel := gvl_visu.var_in_teachingDetailVels.y.vel;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetailVels.z.vel := gvl_visu.var_in_teachingDetailVels.z.vel;
+END_IF
+IF fbi_r_trigSample.Q THEN
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.sample[gvl_visu.var_in_sampleCavNo].x := gvl_visu.var_in_samplePos.x;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.sample[gvl_visu.var_in_sampleCavNo].y := gvl_visu.var_in_samplePos.y;
+	gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.sample[gvl_visu.var_in_sampleCavNo].z := gvl_visu.var_in_samplePos.z;
+END_IF
+
+//load
+IF fbi_r_trigP1.Q OR fbi_r_trigP3.Q THEN
+	FOR var_i := 1 TO 4 BY 1 DO
+		gvl_visu.var_in_palletizePos.Pos[var_i].x :=gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].Pos[var_i].x;
+		gvl_visu.var_in_palletizePos.Pos[var_i].y :=gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].Pos[var_i].y;
+		gvl_visu.var_in_palletizePos.Pos[var_i].z :=gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].Pos[var_i].z;
+	END_FOR
+	gvl_visu.var_in_initialPos.x := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.x;
+	gvl_visu.var_in_initialPos.y := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.y;
+	gvl_visu.var_in_initialPos.z := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.initial.z;
+	gvl_visu.var_in_removePos.x := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.remove.x;
+	gvl_visu.var_in_removePos.y := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.remove.y;
+	gvl_visu.var_in_removePos.z := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.remove.z;
+	gvl_visu.var_in_pickUpPos.x := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.x;
+	gvl_visu.var_in_pickUpPos.y := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.y;
+	gvl_visu.var_in_pickUpPos.z := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.pickUp.z;
+	gvl_visu.var_in_teachingDetail.passingPos.x := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.passingPos.x;
+	gvl_visu.var_in_teachingDetail.passingPos.y := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.passingPos.y;
+	gvl_visu.var_in_teachingDetail.passingPos.z := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.passingPos.z;
+	gvl_visu.var_in_teachingDetail.settingPos.x := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.settingPos.x;
+	gvl_visu.var_in_teachingDetail.settingPos.y := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.settingPos.y;
+	gvl_visu.var_in_teachingDetail.settingPos.z := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetail.settingPos.z;
+	gvl_visu.var_in_teachingDetailVels.x.vel := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetailVels.x.vel;
+	gvl_visu.var_in_teachingDetailVels.y.vel := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetailVels.y.vel;
+	gvl_visu.var_in_teachingDetailVels.z.vel := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[gvl_visu.var_in_cavNo].teachingDetailVels.z.vel;
+END_IF
+IF  fbi_r_trigP3.Q OR fbi_r_trigP4.Q THEN
+	gvl_visu.var_in_samplePos.x := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.sample[gvl_visu.var_in_sampleCavNo].x;
+	gvl_visu.var_in_samplePos.y := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.sample[gvl_visu.var_in_sampleCavNo].y;
+	gvl_visu.var_in_samplePos.z := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.sample[gvl_visu.var_in_sampleCavNo].z;
+END_IF
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_recordingSystem">
+      <LineId Id="315" Count="116" />
+      <LineId Id="74" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

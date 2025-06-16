@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="eP_ejevacMode" Id="{f5be6ee2-ab5f-4d6e-a529-13afd437d332}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eP_ejevacMode :
+(
+	vacON := 1,
+	vacOff := 2,
+	break := 3,
+	breakOff := 4,
+	halt := 0
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

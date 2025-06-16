@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="gvl_auto" Id="{58b783e3-9c22-4b7d-89fa-8122b842bc2b}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	gateLengthIsPassed		: BOOL;
+	requirementToPickUpLens	: BOOL;
+	pickUpLnesDone			: BOOL;
+	chuckopenDone			: BOOL;
+	lensVacuumDone			: BOOL;
+	cavNo					: INT;
+	buf_cavNo				: INT ;
+	autoModeStop			: BOOL;
+	autoModeStoped			: BOOL;
+	motorPowerOn			: BOOL;
+	flg_trayChangeDone		: BOOL;
+	gm_rotaryPowerOn		: BOOL;
+	flg_gateData_Tx			: BOOL;
+	flg_gm_measurementClosed: BOOL;
+	flg_gm_transportClosed	: BOOL;
+	flg_transportClosed		: BOOL;
+	flg_VacuumRetry			: BOOL;
+	flg_gm_VacuumRetry		: BOOL;
+	flg_DataSample_nonDefective: BOOL;
+	flg_DataSample_defective: BOOL;
+	flg_DataSamle_sample: BOOL;
+	buf_gateLength: LREAL;
+	flg_dataSampling_run: BOOL;
+	var_DataSet				: s_DataSample; //lateset data is var_DataSet[0], oldest is var_DataSet[500], cav[0] and pocketNo[0] are unused
+	flg_gm_eleIsDown: BOOL;
+	flg_axisIsPcikingUp: BOOL;
+	flg_buf_gateLengthIsPassed: BOOL;
+	flg_gateLength: BOOL;
+	flg_sampling: BOOL;
+END_VAR
+VAR_GLOBAL PERSISTENT
+	pocketNo				: ARRAY[0..8] OF INT;
+	var_defectiveLens		: ARRAY[0..8] OF INT;
+	
+	flg_pocketCountCheck_cav: int;
+	flg_pocketCountCheck: BOOL;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

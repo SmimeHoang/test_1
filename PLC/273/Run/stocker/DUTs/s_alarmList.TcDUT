@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="s_alarmList" Id="{7bc3f1d8-aaf8-43a2-b632-8e81915bdf9b}">
+    <Declaration><![CDATA[TYPE s_alarmList :
+STRUCT
+	var_alarmLevel : eP_alarmLevel;
+	var_alarmName : WSTRING;
+	var_alarmMassge : WSTRING;
+	var_alarmTime : DT;
+	var_alarmCode1 : eP_alarmCode;
+	var_alarmCode2 : UDINT;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

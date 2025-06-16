@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="eP_programMode" Id="{b44e70a5-82be-4df7-945b-3779a3d97cc4}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eP_programMode :
+(
+	manual := 0,
+	auto,
+	error
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

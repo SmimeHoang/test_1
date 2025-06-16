@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_eje_param" Id="{b2362185-5d00-4a28-82a4-7aff4fda8347}">
+    <Declaration><![CDATA[TYPE ref_eje_param :
+STRUCT
+	var_mutex : INT;
+	var_timeOut : TIME;
+	var_BrkTime : TIME;
+	flg_reset :BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

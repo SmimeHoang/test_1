@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="gvl_io" Id="{de548bd9-9997-453c-a41d-8c1cafd57e62}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	in_wire_saftyCircuitState				AT %I* : BOOL;
+	in_wire_saftyUnitState					AT %I* : BOOL;
+	in_wire_frontSaftyDoor					AT %I* : BOOL;
+	in_wire_btnGreen						AT %I* : BOOL;
+	in_wire_btnRed							AT %I* : BOOL;
+	in_bitNumber0							AT %I* : BOOL;
+	in_bitNumber1							AT %I* : BOOL;
+	in_bitNumber2							AT %I* : BOOL;
+	in_bitNumber3							AT %I* : BOOL;
+	in_wire_gateLengthIsFailed				AT %I* : BOOL;
+	in_wire_lensSetDone						AT %I* : BOOL;
+	in_wire_gatelengthIsSuccessed			AT %I* : BOOL;
+	in_wire_dummySignal						AT %I* : BOOL;
+	in_wire_fiberSens						AT %I* : BOOL;
+	in_wire_gm_fiberSens					AT %I* : BOOL;
+	//solv
+	in_wire_ejectorVac						AT %I* : BOOL;
+	in_wire_ejectorBrk						AT %I* : BOOL;
+	in_wire_svChuckClose					AT %I* : BOOL;
+	in_wire_svChuckOpen						AT %I* : BOOL;
+	in_wire_svPushClose						AT %I* : BOOL;
+	in_wire_svPushOpen						AT %I* : BOOL;
+	in_wire_gm_ejectorVac					AT %I* : BOOL;
+	in_wire_gm_ejectorBrk					AT %I* : BOOL;
+	in_wire_gm_svChuckClose					AT %I* : BOOL;
+	in_wire_gm_svChuckOpen					AT %I* : BOOL;
+	in_wire_gm_svPushClose					AT %I* : BOOL;
+	in_wire_gm_svPushOpen					AT %I* : BOOL;
+	in_wire_gm_svRotaryOrigin				AT %I* : BOOL;
+	in_wire_gm_svRotaryMoving				AT %I* : BOOL;
+	in_wire_gm_svPickUpOrigin				AT %I* : BOOL;
+	in_wire_gm_svPickUpMoving				AT %I* : BOOL;
+	in_wire_gm_svStampOrigin				AT %I* : BOOL;
+	in_wire_gm_svStampMoving				AT %I* : BOOL;
+	//elecylinder
+	in_wire_ele_stocker						AT %I* : UINT;
+	in_wire_ele_gateMeasurement				AT %I* : UINT;
+	
+	in_wire_incjet_ready					AT %I* : BOOL;
+	in_wire_incjet_run  					AT %I* : BOOL;
+	in_wire_incjet_error					AT %I* : BOOL;
+	
+	in_flg_eleTransportOrigin						: BOOL;
+	in_flg_eleTransportMoving						: BOOL;
+	in_flg_eleTransportError						: BOOL;
+	in_flg_eleSampleOrigin							: BOOL;
+	in_flg_eleSampleMoving							: BOOL;
+	in_flg_eleSampleError							: BOOL;
+	in_flg_eleTrayChangeOrigin						: BOOL;
+	in_flg_eleTrayChangeMoving						: BOOL;
+	in_flg_eleTrayChangeError						: BOOL;
+	in_flg_eleRotaryOrigin							: BOOL;
+	in_flg_eleRotaryMoving							: BOOL;
+	in_flg_eleRotaryError							: BOOL;
+	in_flg_gm_elePickupOrigin						: BOOL;
+	in_flg_gm_elePickupMoving						: BOOL;
+	in_flg_gm_elePickupError						: BOOL;
+	in_flg_gm_eleTransportOrigin					: BOOL;
+	in_flg_gm_eleTransportMoving					: BOOL;
+	in_flg_gm_eleTransPortError						: BOOL;
+	
+	
+	
+	in_wire_gateLength						AT %I* : DINT;
+	in_wire_gateMeasurementStatus			AT %I* : BOOL;
+	in_wire_gateMeasurementErrCode			AT %I* : UINT;
+	out_wire_gateMeasurementReset			AT %Q* : DINT;
+	out_wire_gateMeasurementPreset			AT %Q* : DINT;
+	
+	out_wire_saftyUnitReset					AT %Q* : BOOL;
+	out_wire_signalTowerRed 				AT %Q* : BOOL;
+	out_wire_signalTowerGreen 				AT %Q* : BOOL;
+	out_wire_signalTowerYellow				AT %Q* : BOOL;
+	out_wire_signalTowerBuzzer 				AT %Q* : BOOL;
+	
+	out_wire_requestLens					AT %Q* : BOOL;
+	//solv
+	out_wire_ejectorVac						AT %Q* : BOOL;
+	out_wire_ejectorBrk						AT %Q* : BOOL;
+	out_wire_svChuck						AT %Q* : BOOL;
+	out_wire_svCPush						AT %Q* : BOOL;
+	out_wire_gm_ejectorVac					AT %Q* : BOOL;
+	out_wire_gm_ejectorBrk					AT %Q* : BOOL;
+	out_wire_gm_svChuck						AT %Q* : BOOL;
+	out_wire_gm_svCPush						AT %Q* : BOOL;
+	out_wire_gm_svRotary					AT %Q* : BOOL;
+	out_wire_gm_svPickUp					AT %Q* : BOOL;
+	out_wire_gm_svStamp						AT %Q* : BOOL;
+
+	//elecylinder
+	out_wire_ele_stocker					AT %Q* : UINT;
+	out_wire_ele_gateMeasurement			AT %Q* : UINT;
+	
+	out_wire_incjet_stampDeny				AT %Q* : BOOL;
+	
+	out_flg_eleTransportOrigin						: BOOL;
+	out_flg_eleTransportMoving						: BOOL;
+	out_flg_eleTransportReset						: BOOL;
+	out_flg_eleSampleOrigin							: BOOL;
+	out_flg_eleSampleMoving							: BOOL;
+	out_flg_eleSampleReset							: BOOL;
+	out_flg_eleTrayChangeOrigin						: BOOL;
+	out_flg_eleTrayChangeMoving						: BOOL;
+	out_flg_eleTrayChangeReset						: BOOL;
+	out_flg_eleRotaryOrigin							: BOOL;
+	out_flg_eleRotaryMoving							: BOOL;
+	out_flg_eleRotaryReset							: BOOL;
+	out_flg_gm_elePickupOrigin						: BOOL;
+	out_flg_gm_elePickupMoving						: BOOL;
+	out_flg_gm_elePickupReset						: BOOL;
+	out_flg_gm_eleTransportOrigin					: BOOL;
+	out_flg_gm_eleTransportMoving					: BOOL;
+	out_flg_gm_eleTransPortReset					: BOOL;
+	flg_bitNumber0									: BOOL;
+	flg_bitNumber1									: BOOL;
+	flg_bitNumber2									: BOOL;
+	flg_bitNumber3									: BOOL;
+	flg_dummySiganl									: BOOL;
+	flg_gateLengthIsSuccessed						: BOOL;
+	flg_lensSetDone									: BOOL;
+	flg_fiberSens									: BOOL;
+	flg_btnGreen									: BOOL;
+	flg_btnRed										: BOOL;
+	flg_frontSaftyDoor								: BOOL;
+	var_gateLength									: DINT;
+	flg_gatemeasurementStatus						: BOOL;
+	var_gateMeasurementErrCode						: UDINT;
+	var_gateMeasurementReset						: DINT;
+	var_gateMeasurementPreset						: DINT;
+	flg_gm_fiberSens								: BOOL;
+	flg_saftyUnitState								: BOOL;
+	flg_saftyUnitReset								: BOOL;
+	flg_requestLens									: BOOL;
+	flg_signalTowerBuzzer							: BOOL;
+	flg_signalTowerGreen							: BOOL;
+	flg_signalTowerRed								: BOOL;
+	flg_signalTowerYellow							: BOOL;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

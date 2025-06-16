@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="eP_alarmCode" Id="{243b1aa9-d518-43ce-a0a0-a6ed31ca9fe3}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eP_alarmCode :
+(
+	_ := 0,
+	A,
+	E,
+	M,
+	GM,
+	W
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

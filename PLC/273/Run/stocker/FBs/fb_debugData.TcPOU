@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_debugData" Id="{0311ba4b-b359-482f-a223-abfe5fe63057}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_debugData
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	productID: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[productID := 0;
+
+
+gvl_param.var_productInfo[productID].name 				:= '---ForDebug---';
+gvl_param.var_productInfo[productID].num				:= productID;
+gvl_param.var_productInfo[productID].bottomPocketQty 	:= 5;
+gvl_param.var_productInfo[productID].vertivalPocketQty 	:= 3;
+gvl_param.var_productInfo[productID].startCav 			:= 1;
+gvl_param.var_productInfo[productID].cavQty 			:= 8;
+gvl_param.var_productInfo[productID].gateLength_max 	:= 30000;
+gvl_param.var_productInfo[productID].gateLength_min 	:= 15000;
+gvl_param.var_productInfo[productID].pocketSumQty		:= 15;
+gvl_param.var_productInfo[productID].autoVels.x.vel		:= 300;
+gvl_param.var_productInfo[productID].autoVels.x.acc		:= 10000;
+gvl_param.var_productInfo[productID].autoVels.x.dcc		:= 10000;
+gvl_param.var_productInfo[productID].autoVels.y.vel		:= 150;
+gvl_param.var_productInfo[productID].autoVels.y.acc		:= 10000;
+gvl_param.var_productInfo[productID].autoVels.y.dcc		:= 10000;
+gvl_param.var_productInfo[productID].autoVels.z.vel		:= 150;
+gvl_param.var_productInfo[productID].autoVels.z.acc		:= 10000;
+gvl_param.var_productInfo[productID].autoVels.z.dcc		:= 10000;
+gvl_param.var_productInfo[productID].manaulVels.x.vel	:= 100;
+gvl_param.var_productInfo[productID].manaulVels.y.vel	:= 50;
+gvl_param.var_productInfo[productID].manaulVels.z.vel	:= 50;
+
+gvl_param.var_productInfo[productID].teachPos.initial.x	:= 950;
+gvl_param.var_productInfo[productID].teachPos.initial.y	:= 30;
+gvl_param.var_productInfo[productID].teachPos.initial.z	:= 0;
+gvl_param.var_productInfo[productID].teachPos.pickUp.x	:= 1250;
+gvl_param.var_productInfo[productID].teachPos.pickUp.y	:= 30;
+gvl_param.var_productInfo[productID].teachPos.pickUp.z	:= 10;
+gvl_param.var_productInfo[productID].teachPos.remove.x	:= 1220;
+gvl_param.var_productInfo[productID].teachPos.remove.y	:= 190;
+gvl_param.var_productInfo[productID].teachPos.remove.z	:= 10;
+//#1
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[1].x := 1007;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[2].x := 1084;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[3].x := 1007;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[1].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[1].x := 1007;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[2].x := 1084;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[3].x := 1007;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[1].Pos[3].z := 30;
+//#2
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[1].x := 886;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[2].x := 963;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[3].x := 886;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[2].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[1].x := 886;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[2].x := 963;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[3].x := 886;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[2].Pos[3].z := 30;
+//#3
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[1].x := 706;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[2].x := 784;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[3].x := 706;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[3].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[1].x := 706;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[2].x := 783;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[3].x := 706;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[3].Pos[3].z := 30;
+//#4
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[1].x := 585;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[2].x := 662;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[3].x := 585;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[4].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[1].x := 585;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[2].x := 663;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[3].x := 585;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[4].Pos[3].z := 30;
+//#5
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[1].x := 406;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[2].x := 484;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[3].x := 406;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[5].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[1].x := 405;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[2].x := 483;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[3].x := 405;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[5].Pos[3].z := 30;
+//#6
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[1].x := 286;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[2].x := 363;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[3].x := 286;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[6].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[1].x := 285;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[2].x := 362;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[3].x := 285;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[6].Pos[3].z := 30;
+//#7
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[1].x := 107;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[2].x := 184;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[3].x := 107;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[7].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[1].x := 106;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[2].x := 183;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[3].x := 106;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[7].Pos[3].z := 30;
+//#8
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[1].x := -13;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[1].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[2].x := 63;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[2].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[3].x := -13;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[1].cav[8].Pos[3].z := 15;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[1].x := -14;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[1].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[1].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[2].x := 62;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[2].y := 54;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[2].z := 30;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[3].x := -14;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[3].y := 256;
+gvl_param.var_productInfo[productID].teachPos.palletize.upperLower[2].cav[8].Pos[3].z := 30;
+
+//sample
+gvl_param.var_productInfo[productID].teachPos.sample[1].x := 1263;
+gvl_param.var_productInfo[productID].teachPos.sample[1].y := 296;
+gvl_param.var_productInfo[productID].teachPos.sample[1].z := 10;
+gvl_param.var_productInfo[productID].teachPos.sample[2].x := 1242;
+gvl_param.var_productInfo[productID].teachPos.sample[2].y := 296;
+gvl_param.var_productInfo[productID].teachPos.sample[2].z := 10;
+gvl_param.var_productInfo[productID].teachPos.sample[3].x := 1222;
+gvl_param.var_productInfo[productID].teachPos.sample[3].y := 296;
+gvl_param.var_productInfo[productID].teachPos.sample[3].z := 10;
+gvl_param.var_productInfo[productID].teachPos.sample[4].x := 1202;
+gvl_param.var_productInfo[productID].teachPos.sample[4].y := 296;
+gvl_param.var_productInfo[productID].teachPos.sample[4].z := 10;
+gvl_param.var_productInfo[productID].teachPos.sample[5].x := 1262;
+gvl_param.var_productInfo[productID].teachPos.sample[5].y := 187;
+gvl_param.var_productInfo[productID].teachPos.sample[5].z := 10;
+gvl_param.var_productInfo[productID].teachPos.sample[6].x := 1242;
+gvl_param.var_productInfo[productID].teachPos.sample[6].y := 187;
+gvl_param.var_productInfo[productID].teachPos.sample[6].z := 10;
+gvl_param.var_productInfo[productID].teachPos.sample[7].x := 1222;
+gvl_param.var_productInfo[productID].teachPos.sample[7].y := 187;
+gvl_param.var_productInfo[productID].teachPos.sample[7].z := 10;
+gvl_param.var_productInfo[productID].teachPos.sample[8].x := 1202;
+gvl_param.var_productInfo[productID].teachPos.sample[8].y := 187;
+gvl_param.var_productInfo[productID].teachPos.sample[8].z := 10;]]></ST>
+    </Implementation>
+    <LineIds Name="fb_debugData">
+      <LineId Id="96" Count="2" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="222" Count="0" />
+      <LineId Id="11" Count="5" />
+      <LineId Id="18" Count="6" />
+      <LineId Id="258" Count="1" />
+      <LineId Id="257" Count="0" />
+      <LineId Id="25" Count="2" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="31" Count="7" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="41" Count="6" />
+      <LineId Id="52" Count="7" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="60" Count="16" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="79" Count="16" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="109" Count="17" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="128" Count="17" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="147" Count="17" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="166" Count="17" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="185" Count="18" />
+      <LineId Id="224" Count="1" />
+      <LineId Id="227" Count="0" />
+      <LineId Id="229" Count="3" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="233" Count="1" />
+      <LineId Id="226" Count="0" />
+      <LineId Id="236" Count="1" />
+      <LineId Id="235" Count="0" />
+      <LineId Id="239" Count="1" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="241" Count="1" />
+      <LineId Id="223" Count="0" />
+      <LineId Id="244" Count="1" />
+      <LineId Id="243" Count="0" />
+      <LineId Id="247" Count="1" />
+      <LineId Id="246" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

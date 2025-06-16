@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="eP_svMoveMode" Id="{c0887ac0-0596-4a42-97ea-5a073c888720}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eP_svMoveMode :
+(
+	svA := 1,
+	svB := -1,
+	stop := 0
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

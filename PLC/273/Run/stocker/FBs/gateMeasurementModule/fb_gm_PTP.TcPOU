@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_gm_PTP" Id="{63ac9f25-594e-4ddd-b4db-baf7c93b2910}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_gm_PTP
+VAR_INPUT
+	in_flg_run : bool;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	var_process: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT in_flg_run THEN
+	var_process := 0;
+END_IF
+CASE var_process OF
+	0:
+		gvl_axis.ref_r.Execute := FALSE;
+		var_process := 1;
+	1:
+		IF gvl_visu.flg_btn_gm_moveOrigin THEN
+			gvl_axis.ref_r.Position := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.origin;
+			var_process := 2;
+		ELSIF gvl_visu.flg_btn_gm_movePickUp THEN
+			gvl_axis.ref_r.Position := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.pickUp;
+			var_process := 2;
+		ELSIF gvl_visu.flg_btn_gm_moveSet THEN
+			gvl_axis.ref_r.Position := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.set;
+			var_process := 2;
+		ELSIF gvl_visu.flg_btn_gm_moveRemove THEN
+			gvl_axis.ref_r.Position := gvl_param.var_productInfo[gvl_param.var_currentProductID].teachPos.gm_rotary.remove;
+			var_process := 2;
+		END_IF
+	2:
+		gvl_axis.ref_r.Execute := TRUE;
+		IF gvl_axis.ref_r.Error THEN
+			var_process := 0;
+		END_IF
+		IF gvl_axis.ref_r.Done THEN
+			gvl_axis.ref_r.Execute := FALSE;
+			var_process := 0;
+		END_IF
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="fb_gm_PTP">
+      <LineId Id="41" Count="0" />
+      <LineId Id="43" Count="1" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="13" Count="4" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="58" Count="1" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="27" Count="1" />
+      <LineId Id="45" Count="2" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="30" Count="1" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="gvl_param" Id="{b06de125-a8fd-482d-844a-d787072b15ba}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	var_currentMode 		: eP_programMode;
+	var_currentTrayPos 		: INT;
+END_VAR
+VAR_GLOBAL PERSISTENT
+	var_productInfo 		: ARRAY [0..10] OF ref_productInfo;
+	var_currentProductID 	: INT := 0;
+	var_b					: INT;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

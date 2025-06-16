@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_teachingDetail" Id="{801d8dfa-7910-47b7-a91d-f018f70f0108}">
+    <Declaration><![CDATA[TYPE ref_teachingDetail :
+STRUCT
+	passingPos : ref_XYZ;
+	settingPos : ref_XYZ;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

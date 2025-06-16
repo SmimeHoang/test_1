@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="s_DataSampleCav_setQty" Id="{65cab2d5-07e0-43cb-8a86-c9ed45e3152d}">
+    <Declaration><![CDATA[TYPE s_DataSampleCav_setQty :
+STRUCT
+	cav : ARRAY[0..8] OF  s_DaraSampleSetQty;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

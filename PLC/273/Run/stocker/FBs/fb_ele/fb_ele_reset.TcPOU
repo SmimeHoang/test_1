@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_ele_reset" Id="{a3abecf7-2748-4542-b61b-26de034d24d8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_ele_reset
+VAR_IN_OUT
+	var_ref_ele : ref_ele_io;
+END_VAR
+VAR_INPUT
+	in_flg_reset : BOOL;
+END_VAR
+VAR_OUTPUT
+	out_flg_resetDone : bool;
+END_VAR
+VAR
+	var_process: INT;
+	fbi_ton1: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fbi_ton1(IN:= , PT:=T#100MS , Q=> , ET=> );
+IF NOT in_flg_reset THEN
+	var_process := 0;
+	out_flg_resetDone := FALSE;
+	var_ref_ele.output.out_flg_reset := FALSE;
+END_IF
+CASE var_process OF
+	0:
+		IF in_flg_reset THEN
+			fbi_ton1.IN := FALSE;
+			var_process := 1;
+		END_IF
+	1:
+		var_ref_ele.output.out_flg_eleA := FALSE;
+		var_ref_ele.output.out_flg_eleB := FALSE;
+		var_ref_ele.output.out_flg_reset := TRUE;
+		var_ref_ele.param.var_mutex := 0;
+		fbi_ton1.IN := TRUE;
+		IF fbi_ton1.Q THEN
+			var_process := 2;
+		END_IF
+	2:
+		var_ref_ele.output.out_flg_reset := FALSE;
+		out_flg_resetDone := TRUE;
+		var_process := 3;
+	3:
+		out_flg_resetDone := FALSE;
+END_CASE
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_ele_reset">
+      <LineId Id="17" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="127" Count="1" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="129" Count="1" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="72" Count="2" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="82" Count="3" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="51" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fb_IO" Id="{ee93b17e-a546-4a58-bc91-35bf6b8da80d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_IO
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbi_incjetMapping :	fb_incjetMapping;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[gvl_io.flg_bitNumber0 					:= gvl_io.in_bitNumber0;
+gvl_io.flg_bitNumber1 					:= gvl_io.in_bitNumber1;
+gvl_io.flg_bitNumber2 					:= gvl_io.in_bitNumber2;
+gvl_io.flg_bitNumber3 					:= gvl_io.in_bitNumber3;
+gvl_io.flg_dummySiganl 					:= gvl_io.in_wire_dummySignal;
+gvl_io.flg_gateLengthIsSuccessed 		:= gvl_io.in_wire_gatelengthIsSuccessed;
+gvl_io.flg_lensSetDone 					:= gvl_io.in_wire_lensSetDone;
+gvl_io.flg_fiberSens 					:= gvl_io.in_wire_fiberSens;
+gvl_io.flg_btnGreen 					:= gvl_io.in_wire_btnGreen;
+gvl_io.flg_btnRed 						:= gvl_io.in_wire_btnRed;
+gvl_io.flg_frontSaftyDoor 				:= gvl_io.in_wire_frontSaftyDoor;
+gvl_io.var_gateLength 					:= gvl_io.in_wire_gateLength;
+gvl_io.flg_gatemeasurementStatus 		:= gvl_io.in_wire_gateMeasurementStatus;
+gvl_io.var_gateMeasurementErrCode.0		:= gvl_io.in_wire_gateMeasurementErrCode.0;
+gvl_io.var_gateMeasurementErrCode.1		:= gvl_io.in_wire_gateMeasurementErrCode.1;
+gvl_io.out_wire_gateMeasurementReset	:=	gvl_io.var_gateMeasurementReset	;
+gvl_io.out_wire_gateMeasurementPreset	:=	gvl_io.var_gateMeasurementPreset;
+gvl_io.flg_gm_fiberSens 				:= gvl_io.in_wire_gm_fiberSens;
+gvl_io.flg_saftyUnitState 				:= gvl_io.in_wire_saftyUnitState;
+
+gvl_io.out_wire_saftyUnitReset 			:= gvl_io.flg_saftyUnitReset;
+gvl_io.out_wire_requestLens 			:= gvl_io.flg_requestLens;
+gvl_io.out_wire_signalTowerBuzzer 		:= gvl_io.flg_signalTowerBuzzer AND NOT gvl_visu.flg_btn_invalidBuzzer;
+gvl_io.out_wire_signalTowerGreen 		:= gvl_io.flg_signalTowerGreen;
+gvl_io.out_wire_signalTowerRed 			:= gvl_io.flg_signalTowerRed;
+gvl_io.out_wire_signalTowerYellow 		:= gvl_io.flg_signalTowerYellow;
+
+//elecylinder
+
+gvl_io.in_flg_eleTransportOrigin 		:= gvl_io.in_wire_ele_stocker.0;
+gvl_io.in_flg_eleTransportMoving 		:= gvl_io.in_wire_ele_stocker.1;
+gvl_io.in_flg_eleTransportError 		:= gvl_io.in_wire_ele_stocker.2;
+gvl_io.in_flg_eleRotaryOrigin			:= gvl_io.in_wire_ele_stocker.4;
+gvl_io.in_flg_eleRotaryMoving			:= gvl_io.in_wire_ele_stocker.5;
+gvl_io.in_flg_eleRotaryError			:= gvl_io.in_wire_ele_stocker.6;
+gvl_io.in_flg_eleSampleOrigin			:= gvl_io.in_wire_ele_stocker.8;
+gvl_io.in_flg_eleSampleMoving			:= gvl_io.in_wire_ele_stocker.9;
+gvl_io.in_flg_eleSampleError			:= gvl_io.in_wire_ele_stocker.10;
+gvl_io.in_flg_eleTrayChangeOrigin		:= gvl_io.in_wire_ele_stocker.12;
+gvl_io.in_flg_eleTrayChangeMoving		:= gvl_io.in_wire_ele_stocker.13;
+gvl_io.in_flg_eleTrayChangeError		:= gvl_io.in_wire_ele_stocker.14;
+gvl_io.in_flg_gm_eleTransportOrigin		:= gvl_io.in_wire_ele_gateMeasurement.0;
+gvl_io.in_flg_gm_eleTransportMoving		:= gvl_io.in_wire_ele_gateMeasurement.1;
+gvl_io.in_flg_gm_eleTransPortError		:= gvl_io.in_wire_ele_gateMeasurement.2;
+gvl_io.in_flg_gm_elePickupOrigin		:= gvl_io.in_wire_ele_gateMeasurement.5;
+gvl_io.in_flg_gm_elePickupMoving		:= gvl_io.in_wire_ele_gateMeasurement.4;
+gvl_io.in_flg_gm_elePickupError			:= gvl_io.in_wire_ele_gateMeasurement.6;
+
+gvl_io.out_wire_ele_stocker.0			:= gvl_io.out_flg_eleTransportOrigin;
+gvl_io.out_wire_ele_stocker.1			:= gvl_io.out_flg_eleTransportMoving;
+gvl_io.out_wire_ele_stocker.2			:= gvl_io.out_flg_eleTransportReset;
+gvl_io.out_wire_ele_stocker.4			:= gvl_io.out_flg_eleRotaryOrigin;
+gvl_io.out_wire_ele_stocker.5			:= gvl_io.out_flg_eleRotaryMoving;
+gvl_io.out_wire_ele_stocker.6			:= gvl_io.out_flg_eleRotaryReset;
+gvl_io.out_wire_ele_stocker.8			:= gvl_io.out_flg_eleSampleOrigin;
+gvl_io.out_wire_ele_stocker.9			:= gvl_io.out_flg_eleSampleMoving;
+gvl_io.out_wire_ele_stocker.10			:= gvl_io.out_flg_eleSampleReset;
+gvl_io.out_wire_ele_stocker.12			:= gvl_io.out_flg_eleTrayChangeOrigin;
+gvl_io.out_wire_ele_stocker.13			:= gvl_io.out_flg_eleTrayChangeMoving;
+gvl_io.out_wire_ele_stocker.14			:= gvl_io.out_flg_eleTrayChangeReset;
+gvl_io.out_wire_ele_gateMeasurement.0 	:= gvl_io.out_flg_gm_eleTransportOrigin;
+gvl_io.out_wire_ele_gateMeasurement.1 	:= gvl_io.out_flg_gm_eleTransportMoving;
+gvl_io.out_wire_ele_gateMeasurement.2 	:= gvl_io.out_flg_gm_eleTransPortReset;
+gvl_io.out_wire_ele_gateMeasurement.5 	:= gvl_io.out_flg_gm_elePickupOrigin;
+gvl_io.out_wire_ele_gateMeasurement.4 	:= gvl_io.out_flg_gm_elePickupMoving;
+gvl_io.out_wire_ele_gateMeasurement.6 	:= gvl_io.out_flg_gm_elePickupReset;
+
+
+fbi_incjetMapping(
+	IN_00:= gvl_io.in_wire_incjet_error, 
+	IN_01:= , 
+	IN_02:= , 
+	IN_03:= gvl_io.in_wire_incjet_ready, 
+	IN_04:= , 
+	IN_05:= , 
+	IN_06:= gvl_io.in_wire_incjet_run,
+	IN_07:= , 
+	IN_08:= , 
+	IN_09:= , 
+	OUT_00=> , 
+	OUT_01=> , 
+	OUT_02=> , 
+	OUT_03=> , 
+	OUT_04=> , 
+	OUT_05=> , 
+	OUT_06=> , 
+	OUT_07=> , 
+	OUT_08=> gvl_io.out_wire_incjet_stampDeny, 
+	OUT_09=> , 
+	OUT_10=> , 
+	OUT_11=> , 
+	OUT_12=> , 
+	OUT_13=> , 
+	OUT_14=> , 
+	OUT_15=> , 
+	OUT_16=> , 
+	OUT_17=> , 
+	OUT_18=> , 
+	OUT_19=> , 
+	var_productInfo:= gvl_param.var_productInfo[gvl_param.var_currentProductID], 
+	var_incjetInfo:= gvl_gm.var_incjetInfo);
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_IO">
+      <LineId Id="9" Count="3" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="40" Count="1" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="4" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="65" Count="10" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="85" Count="1" />
+      <LineId Id="88" Count="2" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="93" Count="12" />
+      <LineId Id="107" Count="4" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="128" Count="31" />
+      <LineId Id="78" Count="6" />
+      <LineId Id="76" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

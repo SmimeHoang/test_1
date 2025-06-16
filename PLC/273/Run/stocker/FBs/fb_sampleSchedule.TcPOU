@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_sampleSchedule" Id="{7f12bfd5-7e74-4c39-8612-7a0fb834d6d2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_sampleSchedule
+VAR_INPUT
+	in_var_enableSchedule: ARRAY[0..6] OF BOOL;
+	in_var_scheduleTimeH : ARRAY[0..6] OF WORD;
+	in_var_scheduleTimeM : ARRAY[0..6] OF WORD;
+END_VAR
+VAR_OUTPUT
+	out_flg_sampletriger : bool;
+END_VAR
+VAR
+	fbi_GetLocalAmsNetId : FB_GetLocalAmsNetId;
+	fbi_LocalSystemTime : FB_LocalSystemTime;
+	var_scheduleTime : ARRAY[0..6] OF s_timeSchedule;
+	var_scheduleNumber : INT;
+	fbi_r_trig: R_TRIG;
+	var_process: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbi_GetLocalAmsNetId(
+	bExecute:= TRUE, 
+	tTimeOut:= , 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> , 
+	AddrString=> , 
+	AddrBytes=> );
+fbi_LocalSystemTime(
+	sNetID:=fbi_GetLocalAmsNetId.AddrString , 
+	bEnable:= TRUE, 
+	dwCycle:= , 
+	dwOpt:= , 
+	tTimeout:= , 
+	bValid=> , 
+	systemTime=> ,
+	tzID=> );
+fbi_r_trig(CLK:= , Q=> );
+FOR var_scheduleNumber := 0 TO 6 BY 1 DO
+	IF in_var_enableSchedule[var_scheduleNumber] THEN
+		var_scheduleTime[var_scheduleNumber].hour := in_var_scheduleTimeH[var_scheduleNumber];
+		var_scheduleTime[var_scheduleNumber].minute := in_var_scheduleTimeM[var_scheduleNumber];
+		IF fbi_LocalSystemTime.systemTime.wHour = var_scheduleTime[var_scheduleNumber].hour THEN
+			IF fbi_LocalSystemTime.systemTime.wMinute = var_scheduleTime[var_scheduleNumber].minute THEN		
+				fbi_r_trig.CLK := TRUE;
+			ELSE
+				fbi_r_trig.CLK := FALSE;
+			END_IF
+		END_IF
+	END_IF
+END_FOR
+out_flg_sampletriger := fbi_r_trig.Q;
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_sampleSchedule">
+      <LineId Id="40" Count="6" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="49" Count="7" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="153" Count="5" />
+      <LineId Id="160" Count="2" />
+      <LineId Id="212" Count="1" />
+      <LineId Id="204" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="85" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

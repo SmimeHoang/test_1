@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_sv_io" Id="{d056355f-5df5-4df8-83b6-3b70d9f146ef}">
+    <Declaration><![CDATA[TYPE ref_sv_io :
+STRUCT
+	param: ref_sv_param;
+	in: ref_sv_input;
+	out:ref_sv_output;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

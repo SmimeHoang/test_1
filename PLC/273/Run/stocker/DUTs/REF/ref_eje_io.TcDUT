@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_eje_io" Id="{760e0c5a-a0e5-4e3b-ad44-f09c295e589a}">
+    <Declaration><![CDATA[TYPE ref_eje_io :
+STRUCT
+	param:	ref_eje_param;
+	input:	ref_eje_input;
+	output:	ref_eje_output;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

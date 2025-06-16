@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_ele_io" Id="{62fb8b5b-cc73-4fd0-98c9-7e5561bbcfc4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_ele_io
+VAR_IN_OUT
+	var_ref_ele : ref_ele_io;
+END_VAR
+VAR_INPUT
+	in_flg_run : BOOL;
+	in_wire_sensA : BOOL;
+	in_wire_sensB : BOOL;
+	in_wire_error : BOOL;
+	in_flg_reversal: BOOL;
+	in_var_timeout : TIME;
+END_VAR
+VAR_OUTPUT
+	out_flg_run : BOOL;
+	out_wire_eleA : BOOL;
+	out_wire_eleB : BOOL;
+	out_wire_reset : BOOL;
+
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[out_flg_run := in_flg_run;
+IF in_flg_reversal THEN
+	var_ref_ele.input.in_flg_sensA := in_wire_sensB;
+	var_ref_ele.input.in_flg_sensB := in_wire_sensA;
+	var_ref_ele.input.in_wire_error := NOT in_wire_error;
+	
+	out_wire_eleA := var_ref_ele.output.out_flg_eleB;
+	out_wire_eleB := var_ref_ele.output.out_flg_eleA;
+	out_wire_reset := var_ref_ele.output.out_flg_reset;
+ELSE
+	var_ref_ele.input.in_flg_sensA := in_wire_sensA;
+	var_ref_ele.input.in_flg_sensB := in_wire_sensB;
+	var_ref_ele.input.in_wire_error := NOT in_wire_error;
+	
+	out_wire_eleA := var_ref_ele.output.out_flg_eleA;
+	out_wire_eleB := var_ref_ele.output.out_flg_eleB;
+	out_wire_reset := var_ref_ele.output.out_flg_reset;
+END_IF
+
+IF in_wire_sensA = FALSE AND in_wire_sensB = FALSE THEN
+	var_ref_ele.input.in_flg_sensNone := TRUE;
+ELSE
+	var_ref_ele.input.in_flg_sensNone := FALSE;
+END_IF
+var_ref_ele.param.var_timeOut := in_var_timeout;]]></ST>
+    </Implementation>
+    <LineIds Name="fb_ele_io">
+      <LineId Id="34" Count="1" />
+      <LineId Id="97" Count="5" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="91" Count="5" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="81" Count="4" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="32" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

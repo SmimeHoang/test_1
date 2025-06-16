@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="eP_svType" Id="{20d12554-491f-45da-8cf2-e35783c6389d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eP_svType :
+(
+	single,
+	double
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

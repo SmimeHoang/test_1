@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_coordinateCal" Id="{229f824a-55a1-4443-8f5a-90412e0e103a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_coordinateCal
+VAR_INPUT
+	in_flg_run : BOOL;
+END_VAR
+VAR_OUTPUT
+	out_flg_run : BOOL;	
+END_VAR
+VAR_IN_OUT
+	var_ref_productInfo : ref_productInfo;
+END_VAR
+VAR_INPUT
+	in_var_cavNo : INT;
+	in_var_pocketNo : INT;
+	in_var_calculateMode : eP_calculateMode;
+END_VAR
+VAR_OUTPUT
+
+	out_flg_busy : BOOL;
+	out_flg_Done : BOOL;
+	out_var_X : LREAL;
+	out_var_Y : LREAL;
+	out_var_Z : LREAL;
+END_VAR
+VAR
+	fbi_r_TRIG: R_TRIG;
+	var_buf_cavNo: INT;
+	var_buf_pocketNo: INT;
+	var_xLineNo: INT;
+	var_yColmnNo: INT;
+	var_foo: INT;
+	var_vecP12: LREAL;
+	var_vecP13: LREAL;
+	var_pitchP13: LREAL;
+	var_pitchP12: LREAL;
+	var_targetPosX: LREAL;
+	var_targetPosY: LREAL;
+	var_matrix : ARRAY [1..3, 1..3] OF LREAL;
+	var_a: LREAL;
+	var_b: LREAL;
+	var_c: LREAL;
+	var_d: LREAL;
+	var_buf_calMode: eP_calculateMode;
+	//homography
+	var_matrixHomo: ARRAY[0..7] OF ARRAY[0..7] OF LREAL;
+	var_originPosX: ARRAY[0..3] OF LREAL;
+	var_originPosY: ARRAY[0..3] OF LREAL;
+	var_marixPivot: ARRAY[0..7] OF LREAL;
+	var_i: INT;
+	var_j: INT;
+	var_pivot: INT;
+	//var_matrixA: ARRAY[0..7] OF ARRAY [0..7] OF LREAL;
+	//var_amax: LREAL;
+	//var_Tmp: LREAL;
+	//var_aryPivot: ARRAY[0..7] OF LREAL;
+	//var_j: INT;
+	
+	var_matrixC: ARRAY[0..7] OF ARRAY[0..7] OF LREAL;
+	var_matrixD: ARRAY[0..7] OF ARRAY[0..7] OF LREAL;
+	var_hi: INT;
+	var_aryA: ARRAY[0..7] OF  LREAL;
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbi_r_TRIG(CLK:= in_flg_run, Q=> );
+out_flg_run := in_flg_run;
+
+IF fbi_r_TRIG.Q THEN
+	var_buf_cavNo := in_var_cavNo;
+	var_buf_pocketNo := in_var_pocketNo;
+	var_buf_calMode := in_var_calculateMode;
+	out_flg_busy := TRUE;
+END_IF
+
+IF out_flg_Done THEN
+	out_flg_busy := FALSE;
+END_IF
+//caluculate target pocket no
+IF out_flg_busy THEN
+		IF var_ref_productInfo.bottomPocketQty <> 0 THEN
+			var_foo := DINT_TO_INT(TRUNC(var_buf_pocketNo / var_ref_productInfo.bottomPocketQty));
+		END_IF
+	IF var_foo < 1 THEN
+		var_xLineNo := var_buf_pocketNo;
+		var_yColmnNo := 1;
+	ELSIF var_foo >= 1 THEN
+		IF var_foo * var_ref_productInfo.bottomPocketQty = in_var_pocketNo THEN
+			var_xLineNo := var_buf_pocketNo - (var_ref_productInfo.bottomPocketQty * (var_foo-1));
+			var_yColmnNo := var_foo ;
+		ELSE
+			var_xLineNo := var_buf_pocketNo - (var_ref_productInfo.bottomPocketQty * var_foo);
+			var_yColmnNo := var_foo + 1;
+		END_IF
+	END_IF
+
+    (*          
+    
+                      back         
+      X - - P[2] ---------------- P[1] 
+           /                    /|
+          /        tray        / |
+         /                    /  Z
+        /                    /
+       P[4]------------------ P[3]
+                           /
+                          /
+                         Y
+	          front
+	*)
+	
+
+//-----------------------------------------------------------------------------------------------------------------------------
+	CASE var_buf_calMode OF
+		eP_calculateMode.Affine:
+			//length
+			var_vecP12 := SQRT(EXPT((var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].x - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x),2) + EXPT((var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].y - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y),2));
+			var_vecP13 := SQRT(EXPT((var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].x - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x),2) + EXPT((var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].y - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y),2));
+			
+			//pitch
+			IF var_ref_productInfo.bottomPocketQty = 1 THEN
+				var_pitchP12 := var_vecP12;
+				var_pitchP13 := var_vecP13 / (var_ref_productInfo.vertivalPocketQty - 1);
+			ELSIF var_ref_productInfo.vertivalPocketQty = 1 THEN
+				var_pitchP12 := var_vecP12 / (var_ref_productInfo.bottomPocketQty - 1);
+				var_pitchP13 := var_vecP13;
+			ELSE
+				var_pitchP12 := var_vecP12 / (var_ref_productInfo.bottomPocketQty - 1);
+				var_pitchP13 := var_vecP13 / (var_ref_productInfo.vertivalPocketQty - 1);
+			END_IF
+			
+			
+			//target coordinate data (origin data)
+			var_targetPosX := ((var_xLineNo - 1) * var_pitchP12);
+			var_targetPosY := ((var_yColmnNo - 1) * var_pitchP13);
+			
+			//genarate affine transform matrix
+			IF var_vecP12 = 0 THEN
+				var_matrix[1,1] := 0;
+			 	var_matrix[1,2] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x/var_vecP13+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].x/var_vecP13;
+			 	var_matrix[1,3] := var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x;
+		
+			 	var_matrix[2,1] := 0;
+			 	var_matrix[2,2] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y/var_vecP13+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].y/var_vecP13;
+			 	var_matrix[2,3] := var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y;
+			
+			  	var_matrix[3,1] := 0;
+			  	var_matrix[3,2] := 0;
+			  	var_matrix[3,3] := 1;
+			ELSIF var_vecP13 = 0 THEN
+				var_matrix[1,1] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x/var_vecP12+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].x/var_vecP12;
+			 	var_matrix[1,2] := 0;
+			 	var_matrix[1,3] := var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x;
+		
+			 	var_matrix[2,1] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y/var_vecP12+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].y/var_vecP12;
+			 	var_matrix[2,2] := 0;
+			 	var_matrix[2,3] := var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y;
+			
+			  	var_matrix[3,1] := 0;
+			  	var_matrix[3,2] := 0;
+			  	var_matrix[3,3] := 1;
+			ELSE
+				var_matrix[1,1] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x/var_vecP12+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].x/var_vecP12;
+			 	var_matrix[1,2] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x/var_vecP13+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].x/var_vecP13;
+			 	var_matrix[1,3] := var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x;
+		
+			 	var_matrix[2,1] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y/var_vecP12+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].y/var_vecP12;
+			 	var_matrix[2,2] := -var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y/var_vecP13+var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].y/var_vecP13;
+			 	var_matrix[2,3] := var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y;
+			
+			  	var_matrix[3,1] := 0;
+			  	var_matrix[3,2] := 0;
+			  	var_matrix[3,3] := 1;
+			END_IF
+
+			  
+			  
+			  //caluculate Axis Z coordinate data
+			var_a := (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].y - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y) * (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].z - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].z) - (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].y - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y) * (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].z - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].z);
+			var_b := (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].z - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].z) * (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].x - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x) - (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].z - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].z) * (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].x - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x);
+			var_c := (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].x - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x) * (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].y - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y) - (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[3].x - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x) * (var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[2].y - var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y);
+			var_d := -((var_a * var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].x) + (var_b * var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].y) + (var_c * var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].z));
+			
+			// caluculate (afiine transform matrix * target coordinate data)
+			out_var_X := (var_matrix[1,1] * var_targetPosX) + (var_matrix[1,2] * var_targetPosY) + var_matrix[1,3];
+			out_var_Y := (var_matrix[2,1] * var_targetPosX) + (var_matrix[2,2] * var_targetPosY) + var_matrix[2,3];
+			IF var_c <> 0 THEN
+				out_var_Z := -((var_a * out_var_X) + (var_b * out_var_Y) + var_d) / var_c;
+			ELSE
+				out_var_Z := var_ref_productInfo.teachPos.palletize.upperLower[gvl_param.var_currentTrayPos].cav[var_buf_cavNo].Pos[1].z;
+			END_IF	
+			out_flg_Done := TRUE;
+		eP_calculateMode.Homography:
+			//
+			out_flg_Done := FALSE;
+	END_CASE
+
+ELSE
+	out_flg_Done := FALSE;
+	
+END_IF
+	
+	]]></ST>
+    </Implementation>
+    <LineIds Name="fb_coordinateCal">
+      <LineId Id="293" Count="136" />
+      <LineId Id="80" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

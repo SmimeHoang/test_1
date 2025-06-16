@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_debuger" Id="{45353351-3546-47d8-971e-515579eb02c1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_debuger
+VAR_INPUT
+	in_flg_run: BOOL;
+	in_flg_start: BOOL;
+	in_var_cavQty: INT;
+END_VAR
+VAR_OUTPUT
+	out_flg_gateLengthISSuccessed: BOOL;
+	out_flg_dummySignal: BOOL;
+	out_flg_lensSetDone: BOOL;
+	out_flg_fiberSens: BOOL;
+	out_flg_busy: BOOL;
+	out_cav: INT;
+END_VAR
+VAR
+	var_process: INT;
+	var_cav: INT;
+	delayTimer: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF in_flg_start AND in_flg_run THEN
+	out_flg_busy := TRUE;
+ELSE
+	out_flg_busy := FALSE;
+	var_process := 0;
+	var_cav := gvl_param.var_productInfo[gvl_param.var_currentProductID].startCav - 1;
+END_IF
+
+CASE var_process OF
+	0:
+		out_flg_gateLengthISSuccessed := FALSE;
+		out_flg_dummySignal := FALSE;
+		out_flg_lensSetDone := FALSE;
+		out_flg_fiberSens := FALSE;
+		gvl_debug.cavConecctSkip := FALSE;
+		delayTimer.IN := FALSE;
+		IF out_flg_busy AND gvl_io.flg_requestLens THEN
+			var_process := 1;
+		END_IF
+	1:
+		gvl_debug.cavConecctSkip := TRUE;
+		var_process := 2;
+	2:
+		//gate
+		out_flg_gateLengthISSuccessed := TRUE;
+		var_process := 3;
+		
+	3:
+		//dummy signal
+		IF gvl_debug.dummySignal THEN
+			out_flg_dummySignal := TRUE;
+			var_process := 4;
+		ELSE
+			var_process := 4;
+		END_IF
+	4:
+		IF var_cav >= in_var_cavQty THEN
+			var_cav := 1;
+			out_cav := var_cav;
+			var_process := 5;
+		ELSE
+			var_cav := var_cav + 1;
+			out_cav := var_cav;
+			var_process := 5;
+		END_IF
+	
+	5:
+		//lens set done
+		delayTimer.IN := TRUE;
+		out_flg_fiberSens := TRUE;
+		IF delayTimer.Q THEN
+			IF gvl_debug.flg_debug_run THEN
+				out_flg_lensSetDone := TRUE;
+				var_process := 0;
+			END_IF
+		END_IF
+END_CASE
+delayTimer(IN:= , PT:= T#3S , Q=> , ET=> );
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_debuger">
+      <LineId Id="54" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="222" Count="0" />
+      <LineId Id="132" Count="1" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="124" Count="1" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="177" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="33" Count="1" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="41" Count="1" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="92" Count="1" />
+      <LineId Id="63" Count="2" />
+      <LineId Id="94" Count="2" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="142" Count="1" />
+      <LineId Id="148" Count="1" />
+      <LineId Id="146" Count="1" />
+      <LineId Id="150" Count="1" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="141" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="176" Count="0" />
+      <LineId Id="68" Count="1" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="32" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

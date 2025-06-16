@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <GVL Name="gvl_elecylinder" Id="{1c908f84-4c91-4ff6-8181-f9f26f538eb8}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+	fbi_axisTransport 		: fb_ele_controller;
+	fbi_axisSample 			: fb_ele_controller;
+	fbi_axisTrayChange 		: fb_ele_controller;
+	fbi_axisRotary 			: fb_ele_controller;
+	fbi_gm_axisTransport 	: fb_ele_controller;
+	fbi_gm_axisPickUp 		: fb_ele_controller;
+	
+
+	ref_axis_transport 		: ref_ele_io;
+	ref_axis_sample		 	: ref_ele_io;
+	ref_axis_trayChange 	: ref_ele_io;
+	ref_axis_rotary 		: ref_ele_io;
+	ref_gm_axisTransport 	: ref_ele_io;
+	ref_gm_axisPickUp 		: ref_ele_io;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

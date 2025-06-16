@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_ejector_io" Id="{134bb3f7-4894-4147-909a-30a7424396fd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_ejector_io
+VAR_IN_OUT
+	var_ref_vac : ref_eje_io;
+END_VAR
+VAR_INPUT
+	in_flg_run : BOOL;
+	in_wire_sensVac : BOOL;
+	in_wire_sensBrk : BOOL;
+	in_var_breakTime: TIME;
+	in_var_timerOut : TIME;
+END_VAR
+VAR_OUTPUT
+	out_flg_run : BOOL;
+	out_wire_ejeVac : BOOL;
+	out_wire_ejeBrk : BOOL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[out_flg_run := in_flg_run;
+
+var_ref_vac.input.in_flg_sensVac := in_wire_sensVac;
+var_ref_vac.input.in_flg_sensBrk := in_wire_sensBrk;
+
+out_wire_ejeVac := var_ref_vac.output.out_flg_ejeVac;
+out_wire_ejeBrk := var_ref_vac.output.out_flg_ejeBrk;
+
+var_ref_vac.param.var_BrkTime := in_var_breakTime;
+var_ref_vac.param.var_timeOut := in_var_timerOut;]]></ST>
+    </Implementation>
+    <LineIds Name="fb_ejector_io">
+      <LineId Id="9" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="50" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

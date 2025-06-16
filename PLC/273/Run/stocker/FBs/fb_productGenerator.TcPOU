@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fb_productGenerator" Id="{a009b6da-6ab5-439a-992c-9d0b89fc398a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_productGenerator
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR 
+	fbi_r_trigSave: R_TRIG;
+	var_scan: INT;
+	var_buf_productNnum: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbi_r_trigSave(CLK:=gvl_visu.flg_btn_saveProductInfo , Q=> );
+//load
+CASE var_scan OF
+	0:
+		var_buf_productNnum := gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].num;
+		var_scan := 1;
+	1:
+		IF var_buf_productNnum <> gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].num THEN
+			gvl_visu.var_in_productGenerate.num					:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].num;
+			gvl_visu.var_in_productGenerate.name				:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].name;
+			gvl_visu.var_in_productGenerate.bottomPocketQty		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].bottomPocketQty;
+			gvl_visu.var_in_productGenerate.vertivalPocketQty	:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].vertivalPocketQty;
+			gvl_visu.var_in_productGenerate.pocketSumQty		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].pocketSumQty;
+			gvl_visu.var_in_productGenerate.startCav			:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].startCav;
+			gvl_visu.var_in_productGenerate.cavQty				:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].cavQty;
+			gvl_visu.var_in_productGenerate.gateLength_max		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].gateLength_max;
+			gvl_visu.var_in_productGenerate.gateLength_min		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].gateLength_min;
+			gvl_visu.var_in_productGenerate.autoVels.x.vel		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.x.vel;
+			gvl_visu.var_in_productGenerate.autoVels.x.acc		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.x.acc;
+			gvl_visu.var_in_productGenerate.autoVels.x.dcc		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.x.dcc;
+			gvl_visu.var_in_productGenerate.autoVels.y.vel		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.y.vel;
+			gvl_visu.var_in_productGenerate.autoVels.y.acc		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.y.acc;
+			gvl_visu.var_in_productGenerate.autoVels.y.dcc		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.y.dcc;
+			gvl_visu.var_in_productGenerate.autoVels.z.vel		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.z.vel;
+			gvl_visu.var_in_productGenerate.autoVels.z.acc		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.z.acc;
+			gvl_visu.var_in_productGenerate.autoVels.z.dcc		:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.z.dcc;
+			gvl_visu.var_in_productGenerate.manaulVels.x.vel	:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].manaulVels.x.vel;
+			gvl_visu.var_in_productGenerate.manaulVels.y.vel	:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].manaulVels.y.vel;
+			gvl_visu.var_in_productGenerate.manaulVels.z.vel	:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].manaulVels.z.vel;
+			gvl_visu.var_in_productGenerate.incjetMsgNo			:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].incjetMsgNo;
+			gvl_visu.var_in_productGenerate.flg_mode_measurement:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].flg_mode_measurement;
+			gvl_visu.var_in_productGenerate.flg_mode_stocker	:= gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].flg_mode_stocker;
+			var_scan := 2;
+		END_IF
+	2:
+		var_scan := 0;
+END_CASE
+//save
+IF fbi_r_trigSave.Q THEN
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].num					:= gvl_visu.var_in_productGenerate.num;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].name					:= gvl_visu.var_in_productGenerate.name;
+	gvl_visu.var_in_currentProduct[gvl_visu.var_in_productGenerate.num]					:= gvl_visu.var_in_productGenerate.name;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].bottomPocketQty		:= gvl_visu.var_in_productGenerate.bottomPocketQty;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].vertivalPocketQty	:= gvl_visu.var_in_productGenerate.vertivalPocketQty;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].pocketSumQty			:= gvl_visu.var_in_productGenerate.bottomPocketQty * gvl_visu.var_in_productGenerate.vertivalPocketQty;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].startCav				:= gvl_visu.var_in_productGenerate.startCav;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].cavQty				:= gvl_visu.var_in_productGenerate.cavQty;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].gateLength_max		:= gvl_visu.var_in_productGenerate.gateLength_max;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].gateLength_min		:= gvl_visu.var_in_productGenerate.gateLength_min;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.x.vel		:= gvl_visu.var_in_productGenerate.autoVels.x.vel;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.x.acc		:= gvl_visu.var_in_productGenerate.autoVels.x.acc;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.x.dcc		:= gvl_visu.var_in_productGenerate.autoVels.x.dcc;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.y.vel		:= gvl_visu.var_in_productGenerate.autoVels.y.vel;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.y.acc		:= gvl_visu.var_in_productGenerate.autoVels.y.acc;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.y.dcc		:= gvl_visu.var_in_productGenerate.autoVels.y.dcc;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.z.vel		:= gvl_visu.var_in_productGenerate.autoVels.z.vel;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.z.acc		:= gvl_visu.var_in_productGenerate.autoVels.z.acc;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].autoVels.z.dcc		:= gvl_visu.var_in_productGenerate.autoVels.z.dcc;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].manaulVels.x.vel		:= gvl_visu.var_in_productGenerate.manaulVels.x.vel;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].manaulVels.y.vel		:= gvl_visu.var_in_productGenerate.manaulVels.y.vel;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].manaulVels.z.vel		:= gvl_visu.var_in_productGenerate.manaulVels.z.vel;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].incjetMsgNo			:= gvl_visu.var_in_productGenerate.incjetMsgNo;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].flg_mode_measurement	:= gvl_visu.var_in_productGenerate.flg_mode_measurement;
+	gvl_param.var_productInfo[gvl_visu.var_in_productGenerate.num].flg_mode_stocker		:= gvl_visu.var_in_productGenerate.flg_mode_stocker;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_productGenerator">
+      <LineId Id="21" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="43" Count="5" />
+      <LineId Id="67" Count="7" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="100" Count="1" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="102" Count="1" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="104" Count="1" />
+      <LineId Id="91" Count="2" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="11" Count="4" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="106" Count="1" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="108" Count="1" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="110" Count="1" />
+      <LineId Id="97" Count="2" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="158" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="56" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

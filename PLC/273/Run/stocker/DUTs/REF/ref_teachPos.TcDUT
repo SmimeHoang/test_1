@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_teachPos" Id="{5ae2ab10-c9b5-4ce5-b33e-2ae8ecd86940}">
+    <Declaration><![CDATA[TYPE ref_teachPos :
+STRUCT
+	palletize : ref_upperLower;
+	initial : ref_xyz;
+	pickUp : ref_xyz;
+	remove :ref_xyz;
+	sample  : ARRAY[1..8] OF ref_xyz;
+	gm_rotary	: s_gm_rotaryPos;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

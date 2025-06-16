@@ -1,0 +1,15 @@
+
+{
+	"UpdateRate": 50,
+	"PlcAddress": "851",
+	"UseLocalHost": true,
+	"Application": "Port_851",
+	"StartVisu": "s_alarm",
+	"BestFit": true,
+	"LogLevel": "INFO",
+	"CommBufferSize": 50000,
+    "HasKeyboard": false,
+    "TouchHandlingActive": false,
+    "ScaleTypeIsotropic": false,
+    "BestFitForDialogs": true
+}

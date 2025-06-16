@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_sv_input" Id="{8eab64bc-78ef-43a0-b6ae-1d3d1aaddb5d}">
+    <Declaration><![CDATA[TYPE ref_sv_input :
+STRUCT
+	in_flg_sensA:	BOOL;
+	in_flg_sensB:	BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

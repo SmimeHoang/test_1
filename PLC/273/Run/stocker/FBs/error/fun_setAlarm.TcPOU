@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="fun_setAlarm" Id="{eeeb4bee-4d62-400d-ba48-5ded1f80b27c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION fun_setAlarm : bool
+VAR_INPUT
+	in_flg_set : BOOL;
+	in_flg_reset : BOOL;
+END_VAR
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+	IF in_flg_reset = FALSE THEN
+		IF in_flg_set THEN
+			fun_setAlarm := TRUE;
+		END_IF
+	ELSIF in_flg_reset THEN
+		fun_setAlarm := FALSE;
+	END_IF
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fun_setAlarm">
+      <LineId Id="38" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="83" Count="1" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="72" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

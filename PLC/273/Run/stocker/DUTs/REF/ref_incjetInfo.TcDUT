@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_incjetInfo" Id="{c41f846f-8af0-4845-8e35-02db78b20dd8}">
+    <Declaration><![CDATA[TYPE ref_incjetInfo :
+STRUCT
+	var_msgNo : INT;
+	flg_denyStamp : BOOL;
+	flg_numberingReset : BOOL;
+	flg_numberingCount : BOOL;
+	flg_numberingStop : BOOL;
+	flg_warningReset : BOOL;
+	flg_stampReady : BOOL;
+	flg_incLow : BOOL;
+	flg_incOut : BOOL;
+	flg_error : BOOL;
+	flg_busy : BOOL;
+	flg_stampRun : BOOL;
+	flg_heatUpDone : BOOL;
+	flg_systemRun : BOOL;
+	flg_stampsDone : BOOL;
+	flg_numberingCountDone : BOOL;
+	flg_fluxLow : BOOL;
+	flg_incFluxLow : BOOL;
+	flg_headCoverIsOpen : BOOL;
+	flg_stampDone : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

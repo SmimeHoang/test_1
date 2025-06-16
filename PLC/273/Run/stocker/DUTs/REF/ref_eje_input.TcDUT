@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="ref_eje_input" Id="{21c6bf67-c182-4130-928d-f52de4c594aa}">
+    <Declaration><![CDATA[TYPE ref_eje_input :
+STRUCT
+	in_flg_sensVac : BOOL;
+	in_flg_sensBrk : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
