@@ -5,7 +5,7 @@
  *
  * @package    sf_sandbox
  * @subpackage MissingDefect
- * @author     Norimasa Arima
+ * @author     HQK
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class MissingDefectActions extends sfActions
@@ -18,10 +18,10 @@ class MissingDefectActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     new sfDoctrineDatabase(array(
-      'name' => 'work',
+      'name' => '***',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     if (empty($_SERVER['HTTPS'])) {
       header("Location: https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}");
@@ -1207,8 +1207,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     $placeid = $request->getParameter('placeid');
@@ -1957,8 +1957,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     $placeid = $request->getParameter('placeid');
@@ -2060,8 +2060,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     $placeid = $request->getParameter('placeid');
@@ -2234,8 +2234,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work;charset=utf8;',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     //ユーザー情報の取り出し単独用 GETデータ
 
@@ -2432,8 +2432,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work;charset=utf8;',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     //ユーザー情報の取り出し単独用 GETデータ
@@ -2603,8 +2603,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work;charset=utf8;',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     //ユーザー情報の取り出し単独用 GETデータ
 
@@ -2783,8 +2783,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     $placeid = $this->getRequestParameter('placeid');
@@ -2814,8 +2814,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     $wbn_id = $this->getRequestParameter('wbn_id');
@@ -2852,8 +2852,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     $mfc_id = $this->getRequestParameter('mfc_id');
@@ -2905,8 +2905,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     if ($send_wbn_id) {
@@ -2976,8 +2976,8 @@ class MissingDefectActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     $send_wbn_id = $request->getParameter("send_wbn_id");

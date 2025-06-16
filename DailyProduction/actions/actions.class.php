@@ -20,8 +20,8 @@ class DailyProductionActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     //稼働中の成形機情報を抽出
     $con = Doctrine_Manager::connection();
@@ -282,8 +282,8 @@ class DailyProductionActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux'
+      'username' => '***',
+      'password' => '***'
     ));
     $con = Doctrine_Manager::connection();
     if ($request->getParameter('placeid') == "") {
@@ -498,8 +498,8 @@ class DailyProductionActions extends sfActions
     new sfDoctrineDatabase(array(
       'name'=>'work',
       'dsn'=>'mysql:host=main-db;dbname=work',
-      'username'=>'nalux-yasu',
-      'password'=>'yasu-nalux'
+      'username'=>'***',
+      'password'=>'***'
     ));
     $cycle = 0;
     $pieces = 0;
@@ -889,8 +889,8 @@ class DailyProductionActions extends sfActions
     new sfDoctrineDatabase(array(
       'name' => 'work',
       'dsn' => 'mysql:host=main-db;dbname=work',
-      'username' => 'nalux-yasu',
-      'password' => 'yasu-nalux',
+      'username' => '***',
+      'password' => '***',
     ));
       $con    = Doctrine_Manager::connection();
       //ロット情報の取得
@@ -932,8 +932,8 @@ class DailyProductionActions extends sfActions
     new sfDoctrineDatabase(array(
         'name'=>'work',
         'dsn'=>'mysql:host=main-db;dbname=work',
-        'username'=>'nalux-yasu',
-        'password'=>'yasu-nalux'
+        'username'=>'***',
+        'password'=>'***'
       ));
     $con = Doctrine_Manager::connection();
     if ($request->getParameter('placeid') == "") {

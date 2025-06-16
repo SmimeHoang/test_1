@@ -25,8 +25,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -731,8 +731,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
 
@@ -752,8 +752,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
 
@@ -780,8 +780,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
         
@@ -1314,8 +1314,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
         if (empty($_SERVER['HTTPS'])) {
@@ -1999,8 +1999,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
 
@@ -2641,8 +2641,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
 
@@ -2760,8 +2760,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
         $q="SELECT *, GROUP_CONCAT(wic_id) as wic_ids, GROUP_CONCAT(wic_hgpd_id) as ids, SUM(wic_qty_in) as sum 
@@ -2835,8 +2835,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -3177,8 +3177,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
         
@@ -3246,8 +3246,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -3385,8 +3385,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -3604,8 +3604,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -3652,8 +3652,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
         $this->getResponse()->setTitle('QR棚卸 | Nalux');
@@ -3761,8 +3761,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
        
@@ -3821,8 +3821,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -4015,8 +4015,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
     
@@ -4097,8 +4097,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -4192,8 +4192,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -4645,8 +4645,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
         $this->getResponse()->setTitle('RFIDの状態確認 | Nalux');
@@ -4946,8 +4946,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
 
@@ -5122,8 +5122,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db;dbname=work',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
 
@@ -5327,8 +5327,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
         'name'=>'work',
         'dsn'=>'mysql:host=main-db;',
-        'username'=>'nalux-yasu',
-        'password'=>'yasu-nalux'
+        'username'=>'***',
+        'password'=>'***'
       ));
         $con = Doctrine_Manager::getInstance()->getCurrentConnection();
         $total=0;
@@ -5490,8 +5490,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name' => 'work',
             'dsn' => 'mysql:host=main-db',
-            'username' => 'nalux-yasu',
-            'password' => 'yasu-nalux',
+            'username' => '***',
+            'password' => '***',
         ));
         $con = Doctrine_Manager::connection();
         $ac = $request->getParameter("ac");
@@ -5640,8 +5640,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -5656,8 +5656,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -5721,8 +5721,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -5983,8 +5983,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -6297,8 +6297,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -6578,8 +6578,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -6842,8 +6842,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -6923,8 +6923,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -7005,8 +7005,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -7168,8 +7168,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
@@ -7823,8 +7823,8 @@ class RFIDReportActions extends sfActions
         new sfDoctrineDatabase(array(
             'name'=>'work',
             'dsn'=>'mysql:host=main-db;dbname=work',
-            'username'=>'nalux-yasu',
-            'password'=>'yasu-nalux'
+            'username'=>'***',
+            'password'=>'***'
         ));
         $con = Doctrine_Manager::connection();
 
